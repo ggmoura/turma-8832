@@ -2,9 +2,9 @@ package br.com.treinar.caixa.modelo;
 
 public class Conta {
 
-	Integer numeroConta;
-	Integer agencia;
-	Double saldo;
-	Pessoa pessoa;
+	public Integer numeroConta;
+	public Integer agencia;
+	public Double saldo;
+	public Pessoa pessoa;
 	
 }
