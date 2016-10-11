@@ -2,10 +2,10 @@ package br.com.treinar.caixa.modelo;
 
 public class Conta {
 
-	int numeroConta;
-	int agencia;
-	double saldo;
-	long cpf;
+	Integer numeroConta;
+	Integer agencia;
+	Double saldo;
+	Long cpf;
 	String nome;
 	
 }
