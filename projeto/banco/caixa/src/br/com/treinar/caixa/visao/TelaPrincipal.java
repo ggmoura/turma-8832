@@ -2,8 +2,12 @@ package br.com.treinar.caixa.visao;
 
 import java.util.Scanner;
 
-import br.com.treinar.caixa.modelo.Conta;
+import br.com.treinar.caixa.modelo.ContaCorrente;
+import br.com.treinar.caixa.modelo.ContaInvestimento;
+import br.com.treinar.caixa.modelo.ContaPoupanca;
+import br.com.treinar.caixa.modelo.ContaSalario;
 import br.com.treinar.caixa.modelo.Pessoa;
+import br.com.treinar.caixa.modelo.banco.Conta;
 
 public class TelaPrincipal {
 
@@ -64,28 +68,78 @@ public class TelaPrincipal {
 
 	private void exibirDados() {
 		System.out.println("\n");
-		System.out.println("\tNumero da conta: " + conta.numeroConta);
-		System.out.println("\tAgencia: " + conta.agencia);
-		System.out.println("\tSaldo: " + conta.saldo);
-		System.out.println("\tNome do titular: " + conta.pessoa.nome);
-		System.out.println("\tCpf do titular: " + conta.pessoa.cpf);
+		System.out.println("\tNumero da conta: " + conta.getNumeroConta());
+		System.out.println("\tAgencia: " + conta.getAgencia());
+		System.out.println("\tSaldo: " + conta.recuperarSaldo());
+		System.out.println("\tNome do titular: " + conta.getPessoa().getNome());
+		System.out.println("\tCpf do titular: " + conta.getPessoa().getCpf());
 		System.out.println("\n");
 	}
 
 	private void criarConta() {
-		conta = new Conta();
+		
+		System.out.println(recuperarMenuTipoConta());
+		Integer tipoConta = leitor.nextInt();
+		
+		switch (tipoConta) {
+		case 1:
+			criarConta((ContaCorrente)conta);
+			break;
+		case 2:
+			criarConta((ContaPoupanca)conta);
+			break;
+		case 3:
+			criarConta((ContaSalario)conta);
+			break;
+		case 4:
+			criarConta((ContaInvestimento)conta);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	private void criarConta(ContaInvestimento conta) {
+		criarConta((Conta)conta);
+		System.out.print("Informe o valor da Taxa de Manutenção: ");
+		conta.setTaxaManutencao(leitor.nextDouble());
+		System.out.print("Informe o valor da Taxa de Rendimento: ");
+		conta.setTaxaRendimento(leitor.nextDouble());
+		
+	}
+
+	private void criarConta(ContaSalario conta) {
+		criarConta((Conta)conta);
+		
+	}
+
+	private void criarConta(ContaPoupanca conta) {
+		criarConta((Conta)conta);
+		
+	}
+
+	private void criarConta(ContaCorrente conta) {
+		criarConta((Conta)conta);
+		System.out.print("Informe o valor da Taxa de Manutenção: ");
+		conta.setTaxaManutencao(leitor.nextDouble());
+		System.out.print("Informe o valor do Limite de Cerédito: ");
+		conta.setLimiteCredito(leitor.nextDouble());
+	}
+	
+	private void criarConta(Conta conta) {
 		System.out.print("Informe o numero da conta: ");
-		conta.numeroConta = leitor.nextInt();
+		conta.setNumeroConta(leitor.nextInt());
 		System.out.print("Informe a agencia: ");
-		conta.agencia = leitor.nextInt();
+		conta.setAgencia(leitor.nextInt());
 		System.out.print("Informe o saldo: ");
-		conta.saldo = leitor.nextDouble();
+		conta.depositar(leitor.nextDouble());
 		leitor.nextLine();
-		conta.pessoa = new Pessoa();
+		conta.setPessoa(new Pessoa());
 		System.out.print("Informe o nome do titular: ");
-		conta.pessoa.nome = leitor.nextLine();
+		conta.getPessoa().setNome(leitor.nextLine());
 		System.out.print("Informe o cpf do titular: ");
-		conta.pessoa.cpf = leitor.nextLong();
+		conta.getPessoa().setCpf(leitor.nextLong());
 	}
 
 	private String recuperarMenu() {
@@ -96,5 +150,13 @@ public class TelaPrincipal {
 				+ "3 - Depositar\n\t"
 				+ "4 - Sacar";
 	}
-
+	
+	private String recuperarMenuTipoConta() {
+		return "Informe\n\t"
+				+ "1 - Conta Corrente\n\t"
+				+ "2 - Conta Poupança\n\t"
+				+ "3 - Conta Salario\n\t"
+				+ "4 - Conta Investimento\n\t";
+	}
+	
 }
