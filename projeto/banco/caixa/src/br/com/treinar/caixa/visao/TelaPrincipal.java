@@ -39,6 +39,9 @@ public class TelaPrincipal {
 			case 4:
 				sacar();
 				break;
+			case 5:
+				atualizarTaxaRendimento();
+				break;
 
 			default:
 				System.out.println("Opção Inválida, informe novamente!\n\n");
@@ -47,6 +50,11 @@ public class TelaPrincipal {
 
 		} while (opcao != 0);
 		leitor.close();
+	}
+
+	private void atualizarTaxaRendimento() {
+		System.out.print("Informe o novo valor da taxa de rendimento: ");
+		ContaPoupanca.setTaxaRendimento(leitor.nextInt());
 	}
 
 	private void sacar() {
@@ -157,7 +165,8 @@ public class TelaPrincipal {
 				+ "1 - Criar Conta\n\t"
 				+ "2 - Exibir dados da conta\n\t"
 				+ "3 - Depositar\n\t"
-				+ "4 - Sacar";
+				+ "4 - Sacar\n\t"
+				+ "5 - Atualizar Taxa de Rendimento";
 	}
 	
 	private String recuperarMenuTipoConta() {
