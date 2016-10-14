@@ -2,9 +2,6 @@ package br.com.treinar.caixa.visao;
 
 import java.util.Scanner;
 
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
-
-import sun.security.jca.GetInstance.Instance;
 import br.com.treinar.caixa.modelo.ContaCorrente;
 import br.com.treinar.caixa.modelo.ContaInvestimento;
 import br.com.treinar.caixa.modelo.ContaPoupanca;
@@ -134,7 +131,7 @@ public class TelaPrincipal {
 		criarConta((Conta)conta);
 		System.out.print("Informe o valor da Taxa de Manutenção: ");
 		conta.setTaxaManutencao(leitor.nextDouble());
-		System.out.print("Informe o valor do Limite de Cerédito: ");
+		System.out.print("Informe o valor do Limite de Crédito: ");
 		conta.setLimiteCredito(leitor.nextDouble());
 	}
 	

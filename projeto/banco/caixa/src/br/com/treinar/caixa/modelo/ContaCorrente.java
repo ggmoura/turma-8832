@@ -36,7 +36,7 @@ public class ContaCorrente extends Conta {
 	
 	public Boolean sacar(Double valor) {
 		Boolean sacou = Boolean.FALSE;
-		if (valor <= (saldo + limiteCreditoUtilizado)) {
+		if (valor <= (saldo + (limiteCredito - limiteCreditoUtilizado))) {
 			if (valor <= saldo) {
 				saldo = saldo - valor;				
 			} else {
@@ -47,6 +47,17 @@ public class ContaCorrente extends Conta {
 			sacou = Boolean.TRUE;
 		}
 		return sacou;
+	}
+	
+	@Override
+	public void depositar(Double valor) {
+		if (limiteCreditoUtilizado > 0) {
+			if (valor >= limiteCreditoUtilizado) {
+				valor -= limiteCreditoUtilizado;
+				limiteCreditoUtilizado = 0d;
+			}
+		}
+		depositar(valor);
 	}
 
 }
