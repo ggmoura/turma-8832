@@ -9,7 +9,6 @@ public abstract class Conta {
 	protected Double saldo;
 	private Pessoa pessoa;
 
-
 	public Conta() {
 		saldo = 0d;
 	}
