@@ -57,7 +57,7 @@ public class ContaCorrente extends Conta {
 				limiteCreditoUtilizado = 0d;
 			}
 		}
-		depositar(valor);
+		super.depositar(valor);
 	}
 
 }
