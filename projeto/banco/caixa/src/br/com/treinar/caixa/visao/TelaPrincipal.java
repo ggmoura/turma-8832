@@ -2,6 +2,9 @@ package br.com.treinar.caixa.visao;
 
 import java.util.Scanner;
 
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+
+import sun.security.jca.GetInstance.Instance;
 import br.com.treinar.caixa.modelo.ContaCorrente;
 import br.com.treinar.caixa.modelo.ContaInvestimento;
 import br.com.treinar.caixa.modelo.ContaPoupanca;
@@ -53,11 +56,6 @@ public class TelaPrincipal {
 		System.out.print("Informe o valor a ser sacado: ");
 		Boolean sacou = conta.sacar(leitor.nextDouble());
 		System.out.println(sacou ? "Sacou!" : "Não sacou!");
-//		if (sacou) {
-//			System.out.println("Sacou legal!");
-//		} else {
-//			System.out.println("Não sacou!");
-//		}
 	}
 
 	private void depositar() {
@@ -68,12 +66,22 @@ public class TelaPrincipal {
 
 	private void exibirDados() {
 		System.out.println("\n");
+		System.out.println(conta.getClass().getSimpleName());
 		System.out.println("\tNumero da conta: " + conta.getNumeroConta());
 		System.out.println("\tAgencia: " + conta.getAgencia());
 		System.out.println("\tSaldo: " + conta.recuperarSaldo());
 		System.out.println("\tNome do titular: " + conta.getPessoa().getNome());
 		System.out.println("\tCpf do titular: " + conta.getPessoa().getCpf());
 		System.out.println("\n");
+		if (conta instanceof ContaCorrente) {
+			ContaCorrente contaCorrente = (ContaCorrente)conta;
+			System.out.println("Limite de crédito: " + contaCorrente.getLimiteCredito());
+			System.out.println("Taxa de manutenção: " + contaCorrente.getTaxaManutencao());
+		} else if (conta instanceof ContaInvestimento) {
+			ContaInvestimento contaInvestimento = (ContaInvestimento)conta;
+			System.out.println("Taxa de Rendimento: " + contaInvestimento.getTaxaRendimento());
+			System.out.println("Taxa de manutenção: " + contaInvestimento.getTaxaManutencao());			
+		}
 	}
 
 	private void criarConta() {
@@ -83,15 +91,19 @@ public class TelaPrincipal {
 		
 		switch (tipoConta) {
 		case 1:
+			conta = new ContaCorrente();
 			criarConta((ContaCorrente)conta);
 			break;
 		case 2:
+			conta = new ContaPoupanca();
 			criarConta((ContaPoupanca)conta);
 			break;
 		case 3:
+			conta = new ContaSalario();
 			criarConta((ContaSalario)conta);
 			break;
 		case 4:
+			conta = new ContaInvestimento();
 			criarConta((ContaInvestimento)conta);
 			break;
 
@@ -111,7 +123,6 @@ public class TelaPrincipal {
 
 	private void criarConta(ContaSalario conta) {
 		criarConta((Conta)conta);
-		
 	}
 
 	private void criarConta(ContaPoupanca conta) {
