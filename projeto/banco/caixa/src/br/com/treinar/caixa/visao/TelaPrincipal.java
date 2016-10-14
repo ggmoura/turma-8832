@@ -69,16 +69,16 @@ public class TelaPrincipal {
 		System.out.println("\tSaldo: " + conta.recuperarSaldo());
 		System.out.println("\tNome do titular: " + conta.getPessoa().getNome());
 		System.out.println("\tCpf do titular: " + conta.getPessoa().getCpf());
-		System.out.println("\n");
 		if (conta instanceof ContaCorrente) {
 			ContaCorrente contaCorrente = (ContaCorrente)conta;
-			System.out.println("Limite de crédito: " + contaCorrente.getLimiteCredito());
-			System.out.println("Taxa de manutenção: " + contaCorrente.getTaxaManutencao());
+			System.out.println("\tLimite de crédito: " + contaCorrente.getLimiteCredito());
+			System.out.println("\tTaxa de manutenção: " + contaCorrente.getTaxaManutencao());
 		} else if (conta instanceof ContaInvestimento) {
 			ContaInvestimento contaInvestimento = (ContaInvestimento)conta;
-			System.out.println("Taxa de Rendimento: " + contaInvestimento.getTaxaRendimento());
-			System.out.println("Taxa de manutenção: " + contaInvestimento.getTaxaManutencao());			
+			System.out.println("\tTaxa de Rendimento: " + contaInvestimento.getTaxaRendimento());
+			System.out.println("\tTaxa de manutenção: " + contaInvestimento.getTaxaManutencao());			
 		}
+		System.out.println("\n");
 	}
 
 	private void criarConta() {
@@ -105,6 +105,7 @@ public class TelaPrincipal {
 			break;
 
 		default:
+			System.out.println("\nTipo de conta inválido...\n");
 			break;
 		}
 	}
