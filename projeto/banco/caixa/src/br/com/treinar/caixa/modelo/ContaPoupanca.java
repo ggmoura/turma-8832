@@ -11,7 +11,7 @@ public class ContaPoupanca extends Conta {
 		taxaRendimento = 0;
 	}
 
-	public Integer getTaxaRendimento() {
+	public static Integer getTaxaRendimento() {
 		return taxaRendimento;
 	}
 
