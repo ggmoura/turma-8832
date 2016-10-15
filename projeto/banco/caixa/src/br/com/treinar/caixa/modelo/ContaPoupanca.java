@@ -1,8 +1,9 @@
 package br.com.treinar.caixa.modelo;
 
 import br.com.treinar.caixa.modelo.banco.Conta;
+import br.com.treinar.caixa.modelo.banco.ICaptalizavel;
 
-public class ContaPoupanca extends Conta {
+public class ContaPoupanca extends Conta implements ICaptalizavel {
 
 	private static Integer taxaRendimento;
 	private Integer diaUltimoDeposito;
@@ -36,6 +37,11 @@ public class ContaPoupanca extends Conta {
 
 	public void setDiaUltimoDeposito(Integer diaUltimoDeposito) {
 		this.diaUltimoDeposito = diaUltimoDeposito;
+	}
+
+	@Override
+	public void captalizar() {
+		saldo = saldo * taxaRendimento;
 	}
 
 }
