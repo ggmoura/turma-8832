@@ -1,8 +1,9 @@
 package br.com.treinar.caixa.modelo;
 
 import br.com.treinar.caixa.modelo.banco.Conta;
+import br.com.treinar.caixa.modelo.banco.ITarifavel;
 
-public class ContaCorrente extends Conta {
+public class ContaCorrente extends Conta implements ITarifavel {
 
 	private Double limiteCreditoUtilizado;
 	private Double limiteCredito;
@@ -61,6 +62,11 @@ public class ContaCorrente extends Conta {
 			}
 		}
 		super.depositar(valor);
+	}
+
+	@Override
+	public void tarifar() {
+		saldo -= taxaManutencao;
 	}
 
 }
