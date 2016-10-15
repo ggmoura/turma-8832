@@ -8,6 +8,7 @@ import br.com.treinar.caixa.modelo.ContaPoupanca;
 import br.com.treinar.caixa.modelo.ContaSalario;
 import br.com.treinar.caixa.modelo.Pessoa;
 import br.com.treinar.caixa.modelo.banco.Conta;
+import br.com.treinar.caixa.modelo.banco.ITarifavel;
 import br.com.treinar.caixa.service.IPersistencia;
 import br.com.treinar.caixa.service.StorageMemoria;
 
@@ -47,6 +48,9 @@ public class TelaPrincipal {
 			case 6:
 				exibirTaxaRendimento();
 				break;
+			case 7:
+				tarifarContas();
+				break;
 
 			default:
 				System.out.println("Opção Inválida, informe novamente!\n\n");
@@ -55,6 +59,13 @@ public class TelaPrincipal {
 
 		} while (opcao != 0);
 		leitor.close();
+	}
+
+	private void tarifarContas() {
+		Conta conta = recuperarConta();
+		if (conta instanceof ITarifavel) {
+			((ITarifavel) conta).tarifar();
+		}
 	}
 
 	private void exibirTaxaRendimento() {
@@ -182,7 +193,8 @@ public class TelaPrincipal {
 				+ "3 - Depositar\n\t"
 				+ "4 - Sacar\n\t"
 				+ "5 - Atualizar Taxa de Rendimento\n\t"
-				+ "6 - Exibir Taxa de Rendimento";
+				+ "6 - Exibir Taxa de Rendimento"
+				+ "7 - Tarifar Contas";
 	}
 	
 	private String recuperarMenuTipoConta() {
