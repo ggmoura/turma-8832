@@ -8,12 +8,11 @@ import br.com.treinar.caixa.modelo.ContaPoupanca;
 import br.com.treinar.caixa.modelo.ContaSalario;
 import br.com.treinar.caixa.modelo.Pessoa;
 import br.com.treinar.caixa.modelo.banco.Conta;
-import br.com.treinar.caixa.service.IPersistencia;
-import br.com.treinar.caixa.service.StorageMemoria;
+import br.com.treinar.caixa.modelo.banco.ITarifavel;
 
 public class TelaPrincipal {
 
-	IPersistencia persistencia = new StorageMemoria();
+	Conta conta = null;
 	private Scanner leitor;
 	
 	public TelaPrincipal() {
@@ -47,7 +46,9 @@ public class TelaPrincipal {
 			case 6:
 				exibirTaxaRendimento();
 				break;
-
+			case 7:
+				tarifarConta();
+				break;
 			default:
 				System.out.println("Opção Inválida, informe novamente!\n\n");
 				break;
@@ -55,6 +56,13 @@ public class TelaPrincipal {
 
 		} while (opcao != 0);
 		leitor.close();
+	}
+
+	private void tarifarConta() {
+		if (conta instanceof ITarifavel) {
+			((ITarifavel) conta).tarifar();
+		}
+		
 	}
 
 	private void exibirTaxaRendimento() {
@@ -68,22 +76,18 @@ public class TelaPrincipal {
 	}
 
 	private void sacar() {
-		Conta conta = recuperarConta();
 		System.out.print("Informe o valor a ser sacado: ");
 		Boolean sacou = conta.sacar(leitor.nextDouble());
 		System.out.println(sacou ? "Sacou!" : "Não sacou!");
 	}
 
 	private void depositar() {
-		Conta conta = recuperarConta();
 		System.out.print("Informe o valor a ser depositado: ");
 		Double valor = leitor.nextDouble();
 		conta.depositar(valor);
 	}
 
 	private void exibirDados() {
-
-		Conta conta = recuperarConta();
 		System.out.println("\n");
 		System.out.println(conta.getClass().getSimpleName());
 		System.out.println("\tNumero da conta: " + conta.getNumeroConta());
@@ -107,7 +111,7 @@ public class TelaPrincipal {
 		
 		System.out.println(recuperarMenuTipoConta());
 		Integer tipoConta = leitor.nextInt();
-		Conta conta = null;
+		
 		switch (tipoConta) {
 		case 1:
 			conta = new ContaCorrente();
@@ -125,12 +129,12 @@ public class TelaPrincipal {
 			conta = new ContaInvestimento();
 			criarConta((ContaInvestimento)conta);
 			break;
+
 			
 		default:
 			System.out.println("\nTipo de conta inválido...\n");
 			break;
 		}
-		persistencia.salvar(conta);
 	}
 
 	private void criarConta(ContaInvestimento conta) {
@@ -182,7 +186,8 @@ public class TelaPrincipal {
 				+ "3 - Depositar\n\t"
 				+ "4 - Sacar\n\t"
 				+ "5 - Atualizar Taxa de Rendimento\n\t"
-				+ "6 - Exibir Taxa de Rendimento";
+				+ "6 - Exibir Taxa de Rendimento"
+				+ "7 - Tarifar contas";
 	}
 	
 	private String recuperarMenuTipoConta() {
@@ -191,12 +196,6 @@ public class TelaPrincipal {
 				+ "2 - Conta Poupança\n\t"
 				+ "3 - Conta Salario\n\t"
 				+ "4 - Conta Investimento\n\t";
-	}
-	
-	private Conta recuperarConta() {
-		System.out.print("Informe o numero da conta: ");
-		Conta contaRecuperadaDaPersistencia = persistencia.recuperar(leitor.nextInt());
-		return contaRecuperadaDaPersistencia;
 	}
 	
 }
