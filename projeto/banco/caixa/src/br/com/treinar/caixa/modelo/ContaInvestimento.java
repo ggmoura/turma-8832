@@ -1,8 +1,10 @@
 package br.com.treinar.caixa.modelo;
 
 import br.com.treinar.caixa.modelo.banco.Conta;
+import br.com.treinar.caixa.modelo.banco.ICaptalizavel;
+import br.com.treinar.caixa.modelo.banco.ITarifavel;
 
-public class ContaInvestimento extends Conta {
+public class ContaInvestimento extends Conta implements ITarifavel, ICaptalizavel {
 
 	private Double taxaRendimento;
 	private Double taxaManutencao;
@@ -30,6 +32,16 @@ public class ContaInvestimento extends Conta {
 			sacou = Boolean.TRUE;
 		}
 		return sacou;
+	}
+
+	@Override
+	public void captalizar() {
+		saldo = saldo * taxaRendimento;
+	}
+
+	@Override
+	public void tarifar() {
+		saldo -= taxaManutencao;
 	}
 	
 }
