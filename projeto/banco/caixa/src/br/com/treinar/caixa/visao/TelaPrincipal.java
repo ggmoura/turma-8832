@@ -8,10 +8,12 @@ import br.com.treinar.caixa.modelo.ContaPoupanca;
 import br.com.treinar.caixa.modelo.ContaSalario;
 import br.com.treinar.caixa.modelo.Pessoa;
 import br.com.treinar.caixa.modelo.banco.Conta;
+import br.com.treinar.caixa.service.IPersistencia;
+import br.com.treinar.caixa.service.StorageMemoria;
 
 public class TelaPrincipal {
 
-	Conta conta = null;
+	IPersistencia persistencia = new StorageMemoria();
 	private Scanner leitor;
 	
 	public TelaPrincipal() {
@@ -66,18 +68,22 @@ public class TelaPrincipal {
 	}
 
 	private void sacar() {
+		Conta conta = recuperarConta();
 		System.out.print("Informe o valor a ser sacado: ");
 		Boolean sacou = conta.sacar(leitor.nextDouble());
 		System.out.println(sacou ? "Sacou!" : "Não sacou!");
 	}
 
 	private void depositar() {
+		Conta conta = recuperarConta();
 		System.out.print("Informe o valor a ser depositado: ");
 		Double valor = leitor.nextDouble();
 		conta.depositar(valor);
 	}
 
 	private void exibirDados() {
+
+		Conta conta = recuperarConta();
 		System.out.println("\n");
 		System.out.println(conta.getClass().getSimpleName());
 		System.out.println("\tNumero da conta: " + conta.getNumeroConta());
@@ -101,7 +107,7 @@ public class TelaPrincipal {
 		
 		System.out.println(recuperarMenuTipoConta());
 		Integer tipoConta = leitor.nextInt();
-		
+		Conta conta = null;
 		switch (tipoConta) {
 		case 1:
 			conta = new ContaCorrente();
@@ -119,12 +125,12 @@ public class TelaPrincipal {
 			conta = new ContaInvestimento();
 			criarConta((ContaInvestimento)conta);
 			break;
-
 			
 		default:
 			System.out.println("\nTipo de conta inválido...\n");
 			break;
 		}
+		persistencia.salvar(conta);
 	}
 
 	private void criarConta(ContaInvestimento conta) {
@@ -185,6 +191,12 @@ public class TelaPrincipal {
 				+ "2 - Conta Poupança\n\t"
 				+ "3 - Conta Salario\n\t"
 				+ "4 - Conta Investimento\n\t";
+	}
+	
+	private Conta recuperarConta() {
+		System.out.print("Informe o numero da conta: ");
+		Conta contaRecuperadaDaPersistencia = persistencia.recuperar(leitor.nextInt());
+		return contaRecuperadaDaPersistencia;
 	}
 	
 }
