@@ -42,6 +42,9 @@ public class TelaPrincipal {
 			case 5:
 				atualizarTaxaRendimento();
 				break;
+			case 6:
+				exibirTaxaRendimento();
+				break;
 
 			default:
 				System.out.println("Opção Inválida, informe novamente!\n\n");
@@ -50,6 +53,11 @@ public class TelaPrincipal {
 
 		} while (opcao != 0);
 		leitor.close();
+	}
+
+	private void exibirTaxaRendimento() {
+		System.out.println(ContaPoupanca.getTaxaRendimento());
+		
 	}
 
 	private void atualizarTaxaRendimento() {
@@ -112,6 +120,7 @@ public class TelaPrincipal {
 			criarConta((ContaInvestimento)conta);
 			break;
 
+			
 		default:
 			System.out.println("\nTipo de conta inválido...\n");
 			break;
@@ -166,7 +175,8 @@ public class TelaPrincipal {
 				+ "2 - Exibir dados da conta\n\t"
 				+ "3 - Depositar\n\t"
 				+ "4 - Sacar\n\t"
-				+ "5 - Atualizar Taxa de Rendimento";
+				+ "5 - Atualizar Taxa de Rendimento\n\t"
+				+ "6 - Exibir Taxa de Rendimento";
 	}
 	
 	private String recuperarMenuTipoConta() {
