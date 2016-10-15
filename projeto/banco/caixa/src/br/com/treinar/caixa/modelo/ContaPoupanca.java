@@ -41,6 +41,7 @@ public class ContaPoupanca extends Conta implements ICaptalizavel {
 
 	@Override
 	public void captalizar() {
+		System.out.println("se passaram " + CICLO + " dias");
 		saldo = saldo * taxaRendimento;
 	}
 
