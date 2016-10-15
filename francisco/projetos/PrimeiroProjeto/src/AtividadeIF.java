@@ -5,9 +5,9 @@ public class AtividadeIF {
 		int a = 10, b = 10, c = 20;
 
 		if (a == b && a == c) {
-			System.out.println(" A é igual a b");
+			System.out.println("A Ã© igual a B");
 		} else {
-			System.out.println("Não atende a condição");
+			System.out.println("NÃ£o atende a condiÃ§Ã£o");
 		}
 
 	}
