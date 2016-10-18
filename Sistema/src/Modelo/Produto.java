@@ -6,7 +6,18 @@ public class Produto {
 	private String nome;
 	private Integer qt;
 	private Integer quantidade;
+	private Integer compra;
+	
 
+	public Integer getCompra() {
+		return compra;
+	}
+	public void setCompra(Integer compra) {
+		this.compra = compra * getValorProduto();
+	}
+	public Produto() {
+		quantidade = 0;
+	}
 	public Integer getQuantidade() {
 		return quantidade;
 	}
@@ -43,7 +54,4 @@ public class Produto {
 		Integer quantidade;
 
 	}
-
-	public Produto() {
 	}
-}
