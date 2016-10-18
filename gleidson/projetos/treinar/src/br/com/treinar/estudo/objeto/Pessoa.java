@@ -1,6 +1,5 @@
 package br.com.treinar.estudo.objeto;
 
-import javafx.scene.shape.QuadCurve;
 
 public class Pessoa {
 
