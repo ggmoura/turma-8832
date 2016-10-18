@@ -14,7 +14,7 @@ import br.com.treinar.caixa.service.StorageMemoria;
 
 public class TelaPrincipal {
 
-	IPersistencia persistencia = new StorageMemoria();
+	IPersistencia persistencia = StorageMemoria.getInstance();
 	private Scanner leitor;
 	
 	public TelaPrincipal() {
