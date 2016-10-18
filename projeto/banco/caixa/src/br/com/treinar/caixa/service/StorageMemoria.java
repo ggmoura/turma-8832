@@ -1,6 +1,7 @@
 package br.com.treinar.caixa.service;
 
 import br.com.treinar.caixa.modelo.banco.Conta;
+import br.com.treinar.caixa.modelo.banco.SituacaoConta;
 
 public class StorageMemoria implements IPersistencia {
 
@@ -25,6 +26,7 @@ public class StorageMemoria implements IPersistencia {
 	@Override
 	public void salvar(Conta conta) {
 		if (indice < contas.length) {
+			conta.setSituacao(SituacaoConta.ATIVA);
 			this.contas[indice++] = conta;			
 		}
 	}
@@ -78,14 +80,5 @@ public class StorageMemoria implements IPersistencia {
 		}
 		return contasValidas;
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
