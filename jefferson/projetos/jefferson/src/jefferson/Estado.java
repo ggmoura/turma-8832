@@ -2,9 +2,9 @@ package jefferson;
 
 public class Estado {
 	
-	private String regiao;
-	private long populacao;
-	private Pais pais;
+	String regiao;
+	long populacao;
+	Pais pais;
 
 	public String getRegiao() {
 		return regiao;

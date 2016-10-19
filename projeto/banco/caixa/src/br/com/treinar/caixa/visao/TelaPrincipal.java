@@ -150,7 +150,6 @@ public class TelaPrincipal {
 		conta.setTaxaManutencao(leitor.nextDouble());
 		System.out.print("Informe o valor da Taxa de Rendimento: ");
 		conta.setTaxaRendimento(leitor.nextDouble());
-		
 	}
 
 	private void criarConta(ContaSalario conta) {

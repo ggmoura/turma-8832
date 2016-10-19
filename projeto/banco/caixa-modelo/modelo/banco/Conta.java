@@ -8,6 +8,7 @@ public abstract class Conta {
 	private Integer agencia;
 	protected Double saldo;
 	private Pessoa pessoa;
+	private SituacaoConta situacao;
 
 	public Conta() {
 		saldo = 0d;
@@ -53,6 +54,14 @@ public abstract class Conta {
 		return saldo;
 	}
 
+	public SituacaoConta getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(SituacaoConta situacao) {
+		this.situacao = situacao;
+	}
+
 	public abstract Boolean sacar(Double valor);
-	
+
 }
