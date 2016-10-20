@@ -52,7 +52,7 @@ import Modelo.Produto;
 		getProduto().setQt(leitor.nextInt());
 		
 		
-		if (getProduto().getNome() == produto.getNome()) {
+		if (getProduto().getNome().equals(produto.getNome()) && getProduto().getQuantidade() >= produto.getQt()) {
 					System.out.println("Valor a pagar = " + produto.getValorProduto() * produto.getQt());
 		} else {
 			

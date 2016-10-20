@@ -9,7 +9,6 @@ import br.com.treinar.caixa.modelo.ContaSalario;
 import br.com.treinar.caixa.modelo.Pessoa;
 import br.com.treinar.caixa.modelo.banco.Conta;
 import br.com.treinar.caixa.modelo.banco.ITarifavel;
-import br.com.treinar.caixa.modelo.banco.SituacaoConta;
 import br.com.treinar.caixa.service.IPersistencia;
 import br.com.treinar.caixa.service.StorageMemoria;
 
