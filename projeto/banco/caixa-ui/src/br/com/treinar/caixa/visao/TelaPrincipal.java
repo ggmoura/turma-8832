@@ -61,13 +61,13 @@ public class TelaPrincipal {
 		Menu menu = new Menu(shell, SWT.BAR);
 		shell.setMenuBar(menu);
 
-		Composite viewContaCorrente = new TelaContaCorrente(shell, SWT.NONE);
+		final Composite viewContaCorrente = new TelaContaCorrente(shell, SWT.NONE);
 		oldView = viewContaCorrente;
-		Composite viewContaPoupanca = new TelaContaPoupanca(shell, SWT.NONE);
+		final Composite viewContaPoupanca = new TelaContaPoupanca(shell, SWT.NONE);
 
-		Composite viewContaSalario = new TelaContaSalario(shell, SWT.NONE);
+		final Composite viewContaSalario = new TelaContaSalario(shell, SWT.NONE);
 
-		Composite viewContaInvestimento = new TelaContaInvestimento(shell, SWT.NONE);
+		final Composite viewContaInvestimento = new TelaContaInvestimento(shell, SWT.NONE);
 
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
 		mntmFile.setText("File");
