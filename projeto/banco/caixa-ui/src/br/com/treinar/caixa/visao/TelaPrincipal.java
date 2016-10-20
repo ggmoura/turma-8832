@@ -1,20 +1,19 @@
 package br.com.treinar.caixa.visao;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.custom.StackLayout;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 
 public class TelaPrincipal {
 
 	protected Shell shell;
-	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
+	private Composite oldView;
 
 	/**
 	 * Launch the application.
@@ -50,17 +49,25 @@ public class TelaPrincipal {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(450, 300);
-		shell.setText("SWT Application");
+		shell.setSize(450, 325);
+		shell.setText("Treinar - Banco Caixa");
 
 		buildMenu();
 
 	}
 
 	private void buildMenu() {
-		shell.setLayout(new FillLayout(SWT.VERTICAL));
+		shell.setLayout(new StackLayout());
 		Menu menu = new Menu(shell, SWT.BAR);
 		shell.setMenuBar(menu);
+
+		Composite viewContaCorrente = new TelaContaCorrente(shell, SWT.NONE);
+		oldView = viewContaCorrente;
+		Composite viewContaPoupanca = new TelaContaPoupanca(shell, SWT.NONE);
+
+		Composite viewContaSalario = new TelaContaSalario(shell, SWT.NONE);
+
+		Composite viewContaInvestimento = new TelaContaInvestimento(shell, SWT.NONE);
 
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
 		mntmFile.setText("File");
@@ -84,28 +91,45 @@ public class TelaPrincipal {
 		mntmConta.setMenu(menu_3);
 
 		MenuItem mntmCorrente = new MenuItem(menu_3, SWT.NONE);
-
-		final Composite composite = new TelaCadastroContaCorrente(shell, SWT.NONE);
-		formToolkit.adapt(composite);
-		formToolkit.paintBordersFor(composite);
+		mntmCorrente.setText("Corrente");
 		mntmCorrente.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				composite.setVisible(Boolean.TRUE);
+				showViewConta(viewContaCorrente);
 			}
 		});
-		mntmCorrente.setText("Corrente");
-
 		MenuItem mntmPoupana = new MenuItem(menu_3, SWT.NONE);
 		mntmPoupana.setText("Poupança");
+		mntmPoupana.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				showViewConta(viewContaPoupanca);
+			}
+		});
 
 		MenuItem mntmSalrio = new MenuItem(menu_3, SWT.NONE);
 		mntmSalrio.setText("Salário");
+		mntmSalrio.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				showViewConta(viewContaSalario);
+			}
+		});
 
 		MenuItem mntmInvestimento = new MenuItem(menu_3, SWT.NONE);
 		mntmInvestimento.setText("Investimento");
-		
-		
-		composite.setVisible(Boolean.FALSE);
+
+		mntmInvestimento.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				showViewConta(viewContaInvestimento);
+			}
+		});
+	}
+
+	private void showViewConta(Composite view) {
+		oldView.setVisible(Boolean.FALSE);
+		view.setVisible(Boolean.TRUE);
+		oldView = view;
 	}
 }
