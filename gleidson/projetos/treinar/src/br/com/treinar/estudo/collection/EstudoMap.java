@@ -34,10 +34,6 @@ public class EstudoMap {
 		Pessoa isabela = mapPessoas.get(Sexo.F);
 		System.out.println(mapPessoas);
 
-		for (Sexo sexo : chavesDoMap) {
-			System.out.println(toString);
-			
-		}
 			
 		}
 		
