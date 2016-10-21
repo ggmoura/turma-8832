@@ -3,8 +3,8 @@ public class AtividadeCadastroPessoa {
 	
 	public static void main(String[] args) {
 		
-		Pessoa novaPessoa = null;
-		novaPessoa = new Pessoa();
+		Pessoa1 novaPessoa = null;
+		novaPessoa = new Pessoa1();
 		
 		novaPessoa.nome = "Paula";
 		novaPessoa.idade = 10;
@@ -12,10 +12,10 @@ public class AtividadeCadastroPessoa {
 		System.out.println("NP1_Idade: " + novaPessoa.idade);
 				
 		
-		Pessoa novaPessoa2 = null;
-		novaPessoa2 = new Pessoa();
+		Pessoa1 novaPessoa2 = null;
+		novaPessoa2 = new Pessoa1();
 		
-		// Criando uma Nova variável de novapessoa3 apontando para a variável antiga.
+		// Criando uma Nova variï¿½vel de novapessoa3 apontando para a variï¿½vel antiga.
 		// Outra forma de se fazer a mesma coisa.
 		// Pessoa novaPessoa3 = novaPessoa;
 
@@ -26,18 +26,18 @@ public class AtividadeCadastroPessoa {
 		System.out.println("NP2_Idade: " + novaPessoa2.idade);
 		
 		
-		// Igualar as variáveis -- No java só é alterado a referencia para onde o endereço de memória aponta.
-		// Sendo assim a variável novaPessoa2 vai ter o mesmo endereço de memória do novaPessoa e terão a mesma informação.
+		// Igualar as variï¿½veis -- No java sï¿½ ï¿½ alterado a referencia para onde o endereï¿½o de memï¿½ria aponta.
+		// Sendo assim a variï¿½vel novaPessoa2 vai ter o mesmo endereï¿½o de memï¿½ria do novaPessoa e terï¿½o a mesma informaï¿½ï¿½o.
 		
-		System.out.println(" ** VARIÁVEIS SÃO IGUALADAS ");
+		System.out.println(" ** VARIï¿½VEIS Sï¿½O IGUALADAS ");
 		novaPessoa2 = novaPessoa;  
 		System.out.println("NP1_Nome : " + novaPessoa.nome);
 		System.out.println("NP1_Idade: " + novaPessoa.idade);
 		System.out.println("NP2_Nome : " + novaPessoa2.nome);
 		System.out.println("NP2_Idade: " + novaPessoa2.idade);
 
-		System.out.println(" ** PASSA NOVO ENDEREÇO DE MEMÓRIA PARA VARIÁVEL novaPessoa2  " );		
-		novaPessoa2 = new Pessoa();
+		System.out.println(" ** PASSA NOVO ENDEREï¿½O DE MEMï¿½RIA PARA VARIï¿½VEL novaPessoa2  " );		
+		novaPessoa2 = new Pessoa1();
 		System.out.println("NP1_Nome : " + novaPessoa.nome);
 		System.out.println("NP1_Idade: " + novaPessoa.idade);
 		System.out.println("NP2_Nome : " + novaPessoa2.nome);

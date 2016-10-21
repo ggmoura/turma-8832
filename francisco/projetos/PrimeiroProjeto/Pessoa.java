@@ -1,4 +1,4 @@
-
+package br.com.treinar.estudo;
 
 public class Pessoa {
 

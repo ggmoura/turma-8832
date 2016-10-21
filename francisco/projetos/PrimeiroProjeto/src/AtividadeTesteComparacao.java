@@ -3,27 +3,27 @@ public class AtividadeTesteComparacao {
 
 	public static void main(String[] args) {
 		
-		Pessoa p1 = null;
-		p1 = new Pessoa();
-		Pessoa p2 = p1;
+		Pessoa1 p1 = null;
+		p1 = new Pessoa1();
+		Pessoa1 p2 = p1;
 
 		p1.nome = "Paulo";
-		System.out.println("Comparação após atribuir novo endereço de memória");
+		System.out.println("Comparaï¿½ï¿½o apï¿½s atribuir novo endereï¿½o de memï¿½ria");
 		System.out.println(p1.nome);
 		System.out.println(p2.nome);
 		System.out.println(p1 == p2);
 
-		System.out.println("Comparação após atribuir novo endereço de memória");
-		p2 = new Pessoa(); // Aqui nesse ponto endereço de memória é outro.
+		System.out.println("Comparaï¿½ï¿½o apï¿½s atribuir novo endereï¿½o de memï¿½ria");
+		p2 = new Pessoa1(); // Aqui nesse ponto endereï¿½o de memï¿½ria ï¿½ outro.
 		p2.nome = "Paulo";
 		System.out.println(p1.nome);
 		System.out.println(p2.nome);
-		System.out.println(p1 == p2); //Observe que estamos comparando o objeto e não o conteúdo do objeto.
+		System.out.println(p1 == p2); //Observe que estamos comparando o objeto e nï¿½o o conteï¿½do do objeto.
 
-		System.out.println("Comparativo de conteúdo do objeto");
+		System.out.println("Comparativo de conteï¿½do do objeto");
 		System.out.println(p1.nome);
 		System.out.println(p2.nome);
-		System.out.println(p1.nome == p2.nome); //Observe que estamos comparando o objeto e não o conteúdo do objeto.
+		System.out.println(p1.nome == p2.nome); //Observe que estamos comparando o objeto e nï¿½o o conteï¿½do do objeto.
 	
 	}
 }
