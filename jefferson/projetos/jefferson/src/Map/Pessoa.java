@@ -1,10 +1,26 @@
-package treinar;
+package Map;
 
 public class Pessoa {
-	
 
-	String nome;
-	int idade;
+	public int idade;
+	public String nome;
+	public Sexo sexo;
+
+	public Pessoa() {
+		super();
+	}
+
+	public Pessoa(int idade, String nome) {
+		super();
+		this.idade = idade;
+		this.nome = nome;
+	}
+
+	@Override
+	public String toString() {
+		return "Pessoa [idade=" + idade + ", nome=" + nome + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -12,6 +28,7 @@ public class Pessoa {
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -28,6 +45,7 @@ public class Pessoa {
 			return false;
 		return true;
 	}
+	
 	
 
 }
