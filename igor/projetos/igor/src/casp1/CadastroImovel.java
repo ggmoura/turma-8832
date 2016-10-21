@@ -9,7 +9,7 @@ public class CadastroImovel {
 		Scanner teclado = new Scanner(System.in);
 		Integer tipoImovel = teclado.nextInt();
 		teclado.close();
-		TipoImovel[] tipoImoveis = TipoImovel.values();
+		Sexo[] tipoImoveis = Sexo.values();
 		System.out.println("O imóvel informado foi: " + "\t\t" + tipoImoveis[tipoImovel]);
 
 	}
