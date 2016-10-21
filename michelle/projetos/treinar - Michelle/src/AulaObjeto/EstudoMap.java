@@ -1,8 +1,8 @@
-package br.com.treinar.estudo.collection;
+package AulaObjeto;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import br.com.treinar.estudo.Pessoa;
@@ -21,28 +21,31 @@ public class EstudoMap {
 		mulher.nome = "Isabela";
 		mulher.idade = 30;
 		
-	
 		mapPessoas.put(Sexo.M, homem);
 		mapPessoas.put(Sexo.F, mulher);
 		
 		System.out.println(mapPessoas);
 		
-		mapPessoas.put(Sexo.M, new Pessoa());
+//		mapPessoas.put(Sexo.M, new Pessoa());
 		
 		Set<Sexo> chavesDoMap = mapPessoas.keySet();
+		
 		System.out.println(chavesDoMap);
+		
 		Pessoa isabela = mapPessoas.get(Sexo.F);
-		System.out.println(mapPessoas);
-
+		
+		System.out.println(isabela);
+		
+		
 		for (Sexo sexo : chavesDoMap) {
-			System.out.println(toString);
-			
-		}
+			System.out.println(mapPessoas.get(sexo));
 			
 		}
 		
-		
+		Set<Entry<AulaObjeto.Sexo, AulaObjeto.Pessoa>> itensDoMap = mapPessoas.entrySet();
+		for (Entry<Sexo, Pessoa> entry : itensDoMap) {
+			System.out.println(entry.getKey() + " -  " + entry.getValue().nome );
+		}
 	}
-
-
-
+	
+}
