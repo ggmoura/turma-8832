@@ -1,5 +1,7 @@
 package br.com.treinar.estudo.atividade;
 
+import br.com.treinar.estudo.Pessoa;
+
 public class AtividadeComparacao {
 
 	public static void main(String[] args) {

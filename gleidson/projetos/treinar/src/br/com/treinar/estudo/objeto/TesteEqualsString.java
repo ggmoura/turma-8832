@@ -4,7 +4,7 @@ public class TesteEqualsString {
 
 	
 	public static void main(String[] args) {
-		String nome = "Maria Sophia Maria Sophia Maria Sophia Maria Sophia Maria Sophia Maria Sophia Maria Sophia Maria Sophia Maria Sophia Maria Sophia Maria Sophia Maria Sophia ";
+		String nome = "Maria Sophia";
 		String nome1 = "Maria Sophia";
 		String nome2 = new String("Maria Sophia");
 		
