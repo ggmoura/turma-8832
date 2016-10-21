@@ -2,6 +2,7 @@ package br.com.treinar.estudo.collection;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import br.com.treinar.estudo.Pessoa;
@@ -25,7 +26,7 @@ public class EstudoMap {
 		
 		System.out.println(mapPessoas);
 		
-		mapPessoas.put(Sexo.M, new Pessoa());
+		//mapPessoas.put(Sexo.M, new Pessoa());
 		
 		Set<Sexo> chavesDoMap = mapPessoas.keySet();
 		
@@ -34,7 +35,17 @@ public class EstudoMap {
 		Pessoa isabela = mapPessoas.get(Sexo.F);
 		
 		System.out.println(isabela);
-
+		
+		for (Sexo sexo : chavesDoMap) {
+			System.out.println(mapPessoas.get(sexo));
+		}
+		
+		Set<Entry<Sexo, Pessoa>> itensDoMap = mapPessoas.entrySet();
+		
+		for (Entry<Sexo, Pessoa> entry : itensDoMap) {
+			System.out.println(entry.getKey() + " - " + entry.getValue().nome);
+		}
+		
 	}
 	
 }
