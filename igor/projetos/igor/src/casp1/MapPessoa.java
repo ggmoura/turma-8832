@@ -1,14 +1,13 @@
-package br.com.treinar.estudo.collection;
+package casp1;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import br.com.treinar.estudo.Pessoa;
-import br.com.treinar.estudo.Sexo;
+import casp1.Pessoa;
+import casp1.Sexo;
 
-public class EstudoMap {
+public class MapPessoa {
 
 	public static void main(String[] args) {
 		Map<Sexo, Pessoa> mapPessoas = new HashMap<>();
@@ -21,7 +20,6 @@ public class EstudoMap {
 		mulher.nome = "Isabela";
 		mulher.idade = 30;
 		
-	
 		mapPessoas.put(Sexo.M, homem);
 		mapPessoas.put(Sexo.F, mulher);
 		
@@ -30,15 +28,13 @@ public class EstudoMap {
 		mapPessoas.put(Sexo.M, new Pessoa());
 		
 		Set<Sexo> chavesDoMap = mapPessoas.keySet();
+		
 		System.out.println(chavesDoMap);
+		
 		Pessoa isabela = mapPessoas.get(Sexo.F);
-		System.out.println(mapPessoas);
+		
+		System.out.println(isabela);
 
-			
-		}
-		
-		
 	}
-
-
-
+	
+}
