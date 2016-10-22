@@ -1,6 +1,6 @@
 package br.com.treinar.estudo;
 
-public class Pessoa {
+public class Pessoa implements Comparable<Pessoa> {
 
 	public int idade;
 	public String nome;
@@ -44,6 +44,11 @@ public class Pessoa {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Pessoa o) {
+		return this.nome.compareTo(o.nome);
 	}
 	
 	
