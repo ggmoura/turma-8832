@@ -28,6 +28,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
@@ -147,19 +152,30 @@ public class Principal extends JFrame {
 		//table_1 = new JTable(valores, colunas);
 		DefaultTableModel model = new DefaultTableModel();
 		JTable table_1 = new JTable(model);
+		model.addColumn("#");		
+		model.addColumn("L"); 
 		model.addColumn("Nome"); 
 		model.addColumn("Email"); 
 		model.addColumn("Sexo"); 
 		
+
 		table_1.setBackground(UIManager.getColor("CheckBox.background"));
 		table_1.setBounds(6, 18, 719, 352);
 		contentPane.add(table_1);
+		
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(5);
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(5);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_1.getColumnModel().getColumn(3).setPreferredWidth(200);
+		table_1.getColumnModel().getColumn(4).setPreferredWidth(60);
 		
 		//cria o scroll da tabela
 		JScrollPane scrollBar = new JScrollPane(table_1);
 		scrollBar.setToolTipText("Lista de alunos");
 		scrollBar.setBounds(16, 116, 732, 233);
 		contentPane.add(scrollBar, BorderLayout.CENTER);
+		
+		
 
 		// contentPane.add(table_1);
 
@@ -186,10 +202,23 @@ public class Principal extends JFrame {
 		btnNewButton_1.setBounds(610, 355, 139, 29);
 		contentPane.add(btnNewButton_1);
 		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setBounds(593, 355, 17, 36);
-		contentPane.add(separator_1);
+		JButton btnNewButton_2 = new JButton("Abrir TXT");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String comando = "\teste.txt";
+				try {
+					Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + comando); 
+				}
+				catch (IOException x) {
+					//x.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Atenção:Erro ao abrir arquvio teste.txt");
+					
+				}
+			}
+		});
+		btnNewButton_2.setBounds(16, 355, 117, 29);
+		contentPane.add(btnNewButton_2);
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -200,7 +229,8 @@ public class Principal extends JFrame {
 				String mensagem = textNome.getText() + "\r\n";
 				mensagem += textEmail.getText() + "\r\n";
 				mensagem += comboBoxSexo.getSelectedItem() + "\r\n";
-
+				
+				//VALIDA O NOME
 				if (textNome.getText().equals("")) {
 					textNome.setBackground(Color.YELLOW);
 				
@@ -208,6 +238,8 @@ public class Principal extends JFrame {
 					textNome.grabFocus();
 					return;
 				}
+				
+				//VALIDA O EMAIL
 				if (textEmail.getText().equals("")) {
 					textEmail.setBackground(Color.YELLOW);
 				
@@ -218,13 +250,36 @@ public class Principal extends JFrame {
 
 				JOptionPane.showMessageDialog(null, mensagem);
 				
-				model.addRow(new Object[]{textNome.getText(), textEmail.getText(), comboBoxSexo.getSelectedItem()});
+				//monta os dados digidados no grid
+				model.addRow(new Object[]{1, textNome.getText().toUpperCase().charAt(0), textNome.getText().toUpperCase(), textEmail.getText(), comboBoxSexo.getSelectedItem()});
+				
+				//string para gravar no txt em formato para exportacao separador CSV = ;
+				String mensagem2 = textNome.getText() + ";";
+				mensagem2 += textEmail.getText() + ";";
+				mensagem2 += comboBoxSexo.getSelectedItem() + ";";
+				
+				//grava em txt os dados informados
+				BufferedWriter escreve;
+				try {
+					escreve = new BufferedWriter(new FileWriter("teste.txt", true));
+					escreve.write(mensagem2);
+			 		escreve.newLine();
+			  		escreve.flush();
+			  		escreve.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Atenção: Erro ao gravar no txt OSI.txt");
+				}
+		 		
+			 
+				
 				
 				textNome.setText("");
 				textEmail.setText("");
 				comboBoxSexo.setSelectedIndex(0);
+				textNome.grabFocus();
 				
-			
 				JScrollBar vertical = scrollBar.getVerticalScrollBar();  
 				vertical.setValue(vertical.getMaximum());  
 			}
