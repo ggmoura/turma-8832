@@ -35,7 +35,7 @@ import Modelo.Produto;
 				break;
 
 			default:
-				System.out.println("Opção Inválida, informe novamente!\n\n");
+				System.out.println("Opï¿½ï¿½o Invï¿½lida, informe novamente!\n\n");
 				break;
 			}
 
@@ -52,26 +52,23 @@ import Modelo.Produto;
 		getProduto().setQt(leitor.nextInt());
 		
 		
-		if (getProduto().getNome().equals(produto.getNome()) && getProduto().getQuantidade() >= produto.getQt()) {
-					System.out.println("Valor a pagar = " + produto.getValorProduto() * produto.getQt());
-		} else {
-			
-				System.out.println("Produto invalido");				
+		if (getProduto().getNome().equals(produto.getNome()) && getProduto().getQt() >= produto.getQt()) {
+			System.out.println("Valor a pagar =" + produto.getValorProduto() * produto.getQt()); 
+		} else if (getProduto().getNome().equals(produto.getNome())) {
+			System.out.println("Produto invalido");	
+		}
+															
 			}
-				
-	}	
+	
 		
 	
 		
-	private void compra() {
-			
-	}
-
 	private void exibirDados() {
 
 		System.out.println("Nome: " + produto.getNome());
 		System.out.println("Valor: " + produto.getValorProduto());
 		System.out.println("Quantidade em estoque " + produto.getQt());
+	//	System.out.println(produto);
 
 	}
 
