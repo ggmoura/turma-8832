@@ -2,7 +2,7 @@ package br.com.treinar.estudo;
 
 public class Pessoa implements Comparable<Pessoa> {
 
-	public int idade;
+	public Integer idade;
 	public String nome;
 	public Sexo sexo;
 
