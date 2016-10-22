@@ -3,6 +3,7 @@ package br.com.treinar.estudo.collection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import br.com.treinar.estudo.Pessoa;
@@ -31,6 +32,17 @@ public class OrdenaColecao {
 		
 		System.out.println(pessoas);
 		Collections.sort(pessoas);
+		System.out.println(pessoas);
+//		ComparadorIdade comparador = new ComparadorIdade();
+//		Collections.sort(pessoas, comparador);
+		
+		Collections.sort(pessoas, new Comparator<Pessoa>() {
+			@Override
+			public int compare(Pessoa o1, Pessoa o2) {
+				return o1.idade.compareTo(o2.idade);
+			}
+		});
+		
 		System.out.println(pessoas);
 		
 		
