@@ -41,6 +41,8 @@ public class Principal extends JFrame {
 	private JTable table_1;
 	private JScrollPane scrollPane;
 
+	
+
 	/**
 	 * Launch the application.
 	 */
@@ -66,7 +68,7 @@ public class Principal extends JFrame {
 		setAutoRequestFocus(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 766, 441);
-		setVisible(true);
+		setVisible(false);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -206,13 +208,13 @@ public class Principal extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String comando = "\teste.txt";
+				String comando = "OSI.txt";
 				try {
-					Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + comando); 
+					 Runtime.getRuntime().exec(":c:\\OSI.txt");
 				}
 				catch (IOException x) {
 					//x.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Atenção:Erro ao abrir arquvio teste.txt");
+					JOptionPane.showMessageDialog(null, "Atenção:Erro ao abrir arquvio OSI.txt");
 					
 				}
 			}
@@ -226,9 +228,6 @@ public class Principal extends JFrame {
 				textNome.setBackground(Color.WHITE);
 				textEmail.setBackground(Color.WHITE);
 				
-				String mensagem = textNome.getText() + "\r\n";
-				mensagem += textEmail.getText() + "\r\n";
-				mensagem += comboBoxSexo.getSelectedItem() + "\r\n";
 				
 				//VALIDA O NOME
 				if (textNome.getText().equals("")) {
@@ -248,10 +247,14 @@ public class Principal extends JFrame {
 					return;
 				}
 
-				JOptionPane.showMessageDialog(null, mensagem);
+				//JOptionPane.showMessageDialog(null, mensagem);
+				
+				
+				
+				int contador = table_1.getModel().getRowCount();
 				
 				//monta os dados digidados no grid
-				model.addRow(new Object[]{1, textNome.getText().toUpperCase().charAt(0), textNome.getText().toUpperCase(), textEmail.getText(), comboBoxSexo.getSelectedItem()});
+				model.addRow(new Object[]{contador, textNome.getText().toUpperCase().charAt(0), textNome.getText().toUpperCase(), textEmail.getText(), comboBoxSexo.getSelectedItem()});
 				
 				//string para gravar no txt em formato para exportacao separador CSV = ;
 				String mensagem2 = textNome.getText() + ";";
@@ -261,7 +264,7 @@ public class Principal extends JFrame {
 				//grava em txt os dados informados
 				BufferedWriter escreve;
 				try {
-					escreve = new BufferedWriter(new FileWriter("teste.txt", true));
+					escreve = new BufferedWriter(new FileWriter(":c:\\OSI.txt", true));
 					escreve.write(mensagem2);
 			 		escreve.newLine();
 			  		escreve.flush();

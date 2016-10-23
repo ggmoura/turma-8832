@@ -2,3 +2,6 @@ chrisansu;chris;Masculino;
 carlos;caro;Masculino;
 matser;dfasdfsf;Masculino;
 carlos;carlos@teste;Masculino;
+crisansu;chrisansu@hotmail.com;Masculino;
+marcos de sa;marcos@saa;Masculino;
+janaina de oliveira;janaina.o@terra,ccom.br;Feminino;
