@@ -26,7 +26,7 @@ public class AtividadeMap {
 				}
 				cadastro.get(primeiraLetra).add(nome);
 			}
-			
+			teclado.close();
 			
 		} while (!nome.equalsIgnoreCase("Sair"));
 				
