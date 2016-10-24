@@ -2,6 +2,7 @@ package br.com.treinar.caixa.modelo;
 
 import br.com.treinar.caixa.modelo.banco.Conta;
 import br.com.treinar.caixa.modelo.banco.ITarifavel;
+import br.com.treinar.caixa.modelo.exception.SaldoInsuficienteException;
 
 public class ContaCorrente extends Conta implements ITarifavel {
 
@@ -35,8 +36,7 @@ public class ContaCorrente extends Conta implements ITarifavel {
 		return saldo + limiteCreditoUtilizado;
 	}
 	
-	public Boolean sacar(Double valor) {
-		Boolean sacou = Boolean.FALSE;
+	public void sacar(Double valor) throws SaldoInsuficienteException {
 		if (valor <= (saldo + (limiteCredito - limiteCreditoUtilizado))) {
 			if (valor <= saldo) {
 				saldo = saldo - valor;				
@@ -44,10 +44,9 @@ public class ContaCorrente extends Conta implements ITarifavel {
 				limiteCreditoUtilizado = limiteCreditoUtilizado + (valor - saldo);
 				saldo = 0d;
 			}
-			
-			sacou = Boolean.TRUE;
+		} else {
+			throw new SaldoInsuficienteException(recuperarSaldo());
 		}
-		return sacou;
 	}
 	
 	@Override

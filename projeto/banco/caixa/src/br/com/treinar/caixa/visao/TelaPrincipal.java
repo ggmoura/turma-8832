@@ -9,6 +9,7 @@ import br.com.treinar.caixa.modelo.ContaSalario;
 import br.com.treinar.caixa.modelo.Pessoa;
 import br.com.treinar.caixa.modelo.banco.Conta;
 import br.com.treinar.caixa.modelo.banco.ITarifavel;
+import br.com.treinar.caixa.modelo.exception.SaldoInsuficienteException;
 import br.com.treinar.caixa.service.IPersistencia;
 import br.com.treinar.caixa.service.StorageMemoria;
 
@@ -40,7 +41,12 @@ public class TelaPrincipal {
 				depositar();
 				break;
 			case 4:
-				sacar();
+				try {
+					sacar();
+					System.out.println("Sacou...");
+				} catch (SaldoInsuficienteException e) {
+					System.out.println("Não Sacou. O saldo atual eh: " + e.getSaldoAtual());
+				}
 				break;
 			case 5:
 				atualizarTaxaRendimento();
@@ -78,11 +84,10 @@ public class TelaPrincipal {
 		ContaPoupanca.setTaxaRendimento(leitor.nextInt());
 	}
 
-	private void sacar() {
+	private void sacar() throws SaldoInsuficienteException {
 		Conta conta = recuperarConta();
 		System.out.print("Informe o valor a ser sacado: ");
-		Boolean sacou = conta.sacar(leitor.nextDouble());
-		System.out.println(sacou ? "Sacou!" : "Não sacou!");
+		conta.sacar(leitor.nextDouble());
 	}
 
 	private void depositar() {
