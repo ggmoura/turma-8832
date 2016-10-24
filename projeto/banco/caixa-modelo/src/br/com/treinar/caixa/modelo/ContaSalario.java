@@ -1,16 +1,16 @@
 package br.com.treinar.caixa.modelo;
 
 import br.com.treinar.caixa.modelo.banco.Conta;
+import br.com.treinar.caixa.modelo.exception.SaldoInsuficienteException;
 
 public class ContaSalario extends Conta {
 
-	public Boolean sacar(Double valor) {
-		Boolean sacou = Boolean.FALSE;
+	public void sacar(Double valor) throws SaldoInsuficienteException {
 		if (valor <= saldo) {
 			saldo = saldo - valor;
-			sacou = Boolean.TRUE;
+		} else {
+			throw new SaldoInsuficienteException(recuperarSaldo());
 		}
-		return sacou;
 	}
 	
 }
