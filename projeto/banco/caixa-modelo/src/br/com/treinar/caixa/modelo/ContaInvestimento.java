@@ -3,6 +3,7 @@ package br.com.treinar.caixa.modelo;
 import br.com.treinar.caixa.modelo.banco.Conta;
 import br.com.treinar.caixa.modelo.banco.ICaptalizavel;
 import br.com.treinar.caixa.modelo.banco.ITarifavel;
+import br.com.treinar.caixa.modelo.exception.SaldoInsuficienteException;
 
 public class ContaInvestimento extends Conta implements ITarifavel, ICaptalizavel {
 
@@ -25,13 +26,14 @@ public class ContaInvestimento extends Conta implements ITarifavel, ICaptalizave
 		this.taxaManutencao = taxaManutencao;
 	}
 
-	public Boolean sacar(Double valor) {
-		Boolean sacou = Boolean.FALSE;
+	public void sacar(Double valor) throws SaldoInsuficienteException {
 		if (valor <= saldo + 10) {
 			saldo = saldo - valor;
-			sacou = Boolean.TRUE;
+		} else {
+			SaldoInsuficienteException sie = new SaldoInsuficienteException();
+			sie.setSaldoAtual(recuperarSaldo());
+			throw sie;
 		}
-		return sacou;
 	}
 
 	@Override

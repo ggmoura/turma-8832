@@ -1,6 +1,7 @@
 package br.com.treinar.caixa.modelo.banco;
 
 import br.com.treinar.caixa.modelo.Pessoa;
+import br.com.treinar.caixa.modelo.exception.SaldoInsuficienteException;
 
 public abstract class Conta {
 
@@ -62,6 +63,6 @@ public abstract class Conta {
 		this.situacao = situacao;
 	}
 
-	public abstract Boolean sacar(Double valor);
+	public abstract void sacar(Double valor) throws SaldoInsuficienteException;
 
 }
