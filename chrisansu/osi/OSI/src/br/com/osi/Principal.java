@@ -129,7 +129,7 @@ public class Principal extends JFrame {
 		lblEmail.setBounds(260, 47, 224, 16);
 		contentPane.add(lblEmail);
 
-		JComboBox comboBoxSexo = new JComboBox();
+		final JComboBox comboBoxSexo = new JComboBox();
 		comboBoxSexo.setModel(new DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
 		comboBoxSexo.setBounds(491, 70, 153, 27);
 		contentPane.add(comboBoxSexo);
@@ -152,8 +152,8 @@ public class Principal extends JFrame {
 
 		// Cria o JTable
 		//table_1 = new JTable(valores, colunas);
-		DefaultTableModel model = new DefaultTableModel();
-		JTable table_1 = new JTable(model);
+		final DefaultTableModel model = new DefaultTableModel();
+		final JTable table_1 = new JTable(model);
 		model.addColumn("#");		
 		model.addColumn("L"); 
 		model.addColumn("Nome"); 
@@ -172,7 +172,7 @@ public class Principal extends JFrame {
 		table_1.getColumnModel().getColumn(4).setPreferredWidth(60);
 		
 		//cria o scroll da tabela
-		JScrollPane scrollBar = new JScrollPane(table_1);
+		final JScrollPane scrollBar = new JScrollPane(table_1);
 		scrollBar.setToolTipText("Lista de alunos");
 		scrollBar.setBounds(16, 116, 732, 233);
 		contentPane.add(scrollBar, BorderLayout.CENTER);
