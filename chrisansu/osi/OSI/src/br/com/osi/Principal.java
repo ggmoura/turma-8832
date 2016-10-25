@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -22,15 +25,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 
 public class Principal extends JFrame {
@@ -210,7 +208,14 @@ public class Principal extends JFrame {
 				
 				String comando = "OSI.txt";
 				try {
-					 Runtime.getRuntime().exec(":c:\\OSI.txt");
+					
+					
+					FileSystemView system = FileSystemView.getFileSystemView();
+					String path = system.getHomeDirectory().getPath() + java.io.File.separator + "OSI.txt";
+					
+					JOptionPane.showMessageDialog(null, path);
+					
+					Runtime.getRuntime().exec(path);
 				}
 				catch (IOException x) {
 					//x.printStackTrace();
@@ -264,7 +269,12 @@ public class Principal extends JFrame {
 				//grava em txt os dados informados
 				BufferedWriter escreve;
 				try {
-					escreve = new BufferedWriter(new FileWriter(":c:\\OSI.txt", true));
+					
+					FileSystemView system = FileSystemView.getFileSystemView();
+					String path = system.getHomeDirectory().getPath() + java.io.File.separator + "OSI.txt";
+					
+					
+					escreve = new BufferedWriter(new FileWriter(path, true));
 					escreve.write(mensagem2);
 			 		escreve.newLine();
 			  		escreve.flush();
