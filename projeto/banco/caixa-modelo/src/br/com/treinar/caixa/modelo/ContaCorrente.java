@@ -45,7 +45,9 @@ public class ContaCorrente extends Conta implements ITarifavel {
 				saldo = 0d;
 			}
 		} else {
-			throw new SaldoInsuficienteException(recuperarSaldo());
+			SaldoInsuficienteException sie = new SaldoInsuficienteException();
+			sie.setSaldoAtual(recuperarSaldo());
+			throw sie;
 		}
 	}
 	
