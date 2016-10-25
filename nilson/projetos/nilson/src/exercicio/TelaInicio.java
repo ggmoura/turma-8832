@@ -7,7 +7,6 @@ import exercicio.GradeCurricular;
 import exercicio.Financeiro;
 import exercicio.Disciplina;
 
-
 public class TelaInicio {
 
 	Scanner leitor = new Scanner(System.in);
