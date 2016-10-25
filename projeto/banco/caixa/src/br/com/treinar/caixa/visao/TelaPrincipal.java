@@ -9,6 +9,7 @@ import br.com.treinar.caixa.modelo.ContaSalario;
 import br.com.treinar.caixa.modelo.Pessoa;
 import br.com.treinar.caixa.modelo.banco.Conta;
 import br.com.treinar.caixa.modelo.banco.ITarifavel;
+import br.com.treinar.caixa.modelo.exception.AppException;
 import br.com.treinar.caixa.modelo.exception.SaldoInsuficienteException;
 import br.com.treinar.caixa.service.IPersistencia;
 import br.com.treinar.caixa.service.StorageMemoria;
@@ -94,7 +95,11 @@ public class TelaPrincipal {
 		Conta conta = recuperarConta();
 		System.out.print("Informe o valor a ser depositado: ");
 		Double valor = leitor.nextDouble();
-		conta.depositar(valor);
+		try {
+			conta.depositar(valor);
+		} catch (AppException e) {
+			System.out.println("Erro ao depositar, recolha o envelope!");
+		}
 	}
 
 	private void exibirDados() {
@@ -180,7 +185,11 @@ public class TelaPrincipal {
 		System.out.print("Informe a agencia: ");
 		conta.setAgencia(leitor.nextInt());
 		System.out.print("Informe o saldo: ");
-		conta.depositar(leitor.nextDouble());
+		try {
+			conta.depositar(leitor.nextDouble());
+		} catch (AppException e) {
+			System.out.println("O valor não foi depositado... saldo atual 0 (Zero)");
+		}
 		leitor.nextLine();
 		conta.setPessoa(new Pessoa());
 		System.out.print("Informe o nome do titular: ");

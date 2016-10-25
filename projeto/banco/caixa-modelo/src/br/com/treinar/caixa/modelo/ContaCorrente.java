@@ -2,6 +2,7 @@ package br.com.treinar.caixa.modelo;
 
 import br.com.treinar.caixa.modelo.banco.Conta;
 import br.com.treinar.caixa.modelo.banco.ITarifavel;
+import br.com.treinar.caixa.modelo.exception.AppException;
 import br.com.treinar.caixa.modelo.exception.SaldoInsuficienteException;
 
 public class ContaCorrente extends Conta implements ITarifavel {
@@ -52,7 +53,7 @@ public class ContaCorrente extends Conta implements ITarifavel {
 	}
 	
 	@Override
-	public void depositar(Double valor) {
+	public void depositar(Double valor) throws AppException {
 		if (limiteCreditoUtilizado > 0) {
 			if (valor <= limiteCreditoUtilizado) {
 				limiteCreditoUtilizado -= valor;
