@@ -208,7 +208,14 @@ public class Principal extends JFrame {
 				
 				String comando = "OSI.txt";
 				try {
-					 Runtime.getRuntime().exec(":c:\\OSI.txt");
+					
+					
+					FileSystemView system = FileSystemView.getFileSystemView();
+					String path = system.getHomeDirectory().getPath() + java.io.File.separator + "OSI.txt";
+					
+					JOptionPane.showMessageDialog(null, path);
+					
+					Runtime.getRuntime().exec(path);
 				}
 				catch (IOException x) {
 					//x.printStackTrace();
@@ -264,10 +271,10 @@ public class Principal extends JFrame {
 				try {
 					
 					FileSystemView system = FileSystemView.getFileSystemView();
-					String path = system.getHomeDirectory().getPath() + java.io.File.separator + "meuArquivo.txt";
+					String path = system.getHomeDirectory().getPath() + java.io.File.separator + "OSI.txt";
 					
 					
-					escreve = new BufferedWriter(new FileWriter(":c:\\OSI.txt", true));
+					escreve = new BufferedWriter(new FileWriter(path, true));
 					escreve.write(mensagem2);
 			 		escreve.newLine();
 			  		escreve.flush();
