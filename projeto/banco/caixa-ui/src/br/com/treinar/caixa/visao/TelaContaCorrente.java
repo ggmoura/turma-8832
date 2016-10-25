@@ -1,9 +1,10 @@
 package br.com.treinar.caixa.visao;
 
-import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
-
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -13,17 +14,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import swing2swt.layout.BorderLayout;
-
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-
 import br.com.treinar.caixa.modelo.ContaCorrente;
 import br.com.treinar.caixa.modelo.Pessoa;
+import br.com.treinar.caixa.modelo.exception.AppException;
 import br.com.treinar.caixa.service.IPersistencia;
 import br.com.treinar.caixa.service.StorageMemoria;
-
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 
 public class TelaContaCorrente extends Composite {
 	private Text numeroConta;
@@ -58,7 +53,11 @@ public class TelaContaCorrente extends Composite {
 				ContaCorrente contaCorrente = new ContaCorrente();
 				contaCorrente.setNumeroConta(Integer.parseInt(numeroConta.getText()));
 				contaCorrente.setAgencia(Integer.parseInt(agencia.getText()));
-				contaCorrente.depositar(Double.parseDouble(saldo.getText()));
+				try {
+					contaCorrente.depositar(Double.parseDouble(saldo.getText()));
+				} catch (AppException e1) {
+					System.out.println("Erro ao depositar...");
+				}
 				contaCorrente.setPessoa(new Pessoa());
 				contaCorrente.getPessoa().setNome(nomeTitular.getText());
 				contaCorrente.getPessoa().setCpf(Long.parseLong(cpfTitular.getText()));

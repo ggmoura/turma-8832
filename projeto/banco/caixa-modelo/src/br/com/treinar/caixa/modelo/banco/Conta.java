@@ -1,6 +1,7 @@
 package br.com.treinar.caixa.modelo.banco;
 
 import br.com.treinar.caixa.modelo.Pessoa;
+import br.com.treinar.caixa.modelo.exception.AppException;
 import br.com.treinar.caixa.modelo.exception.SaldoInsuficienteException;
 
 public abstract class Conta {
@@ -47,7 +48,7 @@ public abstract class Conta {
 		this.pessoa = pessoa;
 	}
 
-	public void depositar(Double valor) {
+	public void depositar(Double valor) throws AppException {
 		saldo += valor;
 	}
 
