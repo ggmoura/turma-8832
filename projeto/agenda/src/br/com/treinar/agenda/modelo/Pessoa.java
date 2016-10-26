@@ -1,5 +1,6 @@
 package br.com.treinar.agenda.modelo;
 
+import java.util.Date;
 import java.util.List;
 
 public class Pessoa {
@@ -7,14 +8,8 @@ public class Pessoa {
 	private Long id;
 	private String nome;
 	private Sexo sexo;
+	private Date dataNascimento;
 	private List<Contato> contatos;
-	
-//	create table pessoa (
-//	  id BIGINT NOT NULL AUTO_INCREMENT,
-//	  nome VARCHAR(255),
-//	  sexo INT,
-//	  primary key (id)
-//	);
 
 	public Long getId() {
 		return id;
@@ -46,6 +41,14 @@ public class Pessoa {
 
 	public void setContatos(List<Contato> contatos) {
 		this.contatos = contatos;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 }
