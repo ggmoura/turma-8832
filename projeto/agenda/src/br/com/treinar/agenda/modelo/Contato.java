@@ -6,6 +6,14 @@ public class Contato {
 	private String email;
 	private Telefone telefone;
 	private Pessoa pessoa;
+	
+//	create table contato (
+//	  id BIGINT NOT NULL AUTO_INCREMENT,
+//	  email VARCHAR(255),
+//	  telefone BIGINT,
+//	  pessoa BIGINT,
+//	  primary key (id)
+//	);
 
 	public Long getId() {
 		return id;
