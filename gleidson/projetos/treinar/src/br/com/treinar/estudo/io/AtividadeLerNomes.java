@@ -13,6 +13,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 public class AtividadeLerNomes {
 
 	public static void main(String[] args) {
@@ -23,6 +25,7 @@ public class AtividadeLerNomes {
 		}
 		System.out.println("\n");
 		String nome = "";
+		nomes.clear();
 		do {
 			System.out.print("Informe o nome ou escreva [sair] para finalizar: ");
 			nome = leitor.nextLine();
@@ -57,9 +60,9 @@ public class AtividadeLerNomes {
 	}
 	
 	public static void gravarArquivoOrdenado(List<String> nomes) {
-		Collections.sort(nomes);
+		//Collections.sort(nomes);
 		try {
-			OutputStream os = new FileOutputStream("nomes.trn");
+			OutputStream os = new FileOutputStream("nomes.trn", Boolean.TRUE);
 			OutputStreamWriter osw = new OutputStreamWriter(os);
 			BufferedWriter bw = new BufferedWriter(osw);
 			for (String nome : nomes) {
