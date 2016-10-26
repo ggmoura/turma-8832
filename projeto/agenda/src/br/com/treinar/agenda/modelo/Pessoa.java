@@ -8,6 +8,13 @@ public class Pessoa {
 	private String nome;
 	private Sexo sexo;
 	private List<Contato> contatos;
+	
+//	create table pessoa (
+//	  id BIGINT NOT NULL AUTO_INCREMENT,
+//	  nome VARCHAR(255),
+//	  sexo INT,
+//	  primary key (id)
+//	);
 
 	public Long getId() {
 		return id;
