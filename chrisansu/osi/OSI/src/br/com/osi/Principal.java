@@ -6,6 +6,13 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -22,15 +29,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import org.omg.CORBA_2_3.portable.InputStream;
 
 
 public class Principal extends JFrame {
@@ -204,22 +208,51 @@ public class Principal extends JFrame {
 		btnNewButton_1.setBounds(610, 355, 139, 29);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Abrir TXT");
+		JButton btnNewButton_2 = new JButton("Visualizar registros");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String comando = "OSI.txt";
+				FileSystemView system = FileSystemView.getFileSystemView();
+				String path = system.getHomeDirectory().getPath() + java.io.File.separator + "OSI.txt";
+				
 				try {
-					 Runtime.getRuntime().exec(":c:\\OSI.txt");
+					
+					FileInputStream is = new FileInputStream(path);//informa aonde esta o arquivo
+					//int b = is.read();//quantidade de caractere
+				    //is.close();
+					InputStreamReader isr = new InputStreamReader(is);//abre o arquivo
+					BufferedReader br = new BufferedReader(isr);
+					String linha  = br.readLine();//le a primeira linha
+					
+					
+					//JOptionPane.showMessageDialog(null, path);
+					
+					String texto = "";
+					while(linha!=null){
+						
+						linha = br.readLine();
+						texto +="\r\n" + linha;//lendo todas as linhas do arquivo
+					}
+					br.close();//fecha a porta de leitura
+					
+					JOptionPane.showMessageDialog(null, texto);
+					
+					Runtime runtime = Runtime.getRuntime();
+					Process process = runtime.exec(path);
+					
+					
+				}
+				catch(FileNotFoundException i){
+					//x.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Atenção: arquivo não enconrado" + path);
 				}
 				catch (IOException x) {
-					//x.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Atenção:Erro ao abrir arquvio OSI.txt");
 					
+					JOptionPane.showMessageDialog(null, "Atenção:Erro ao ler o arquvio" + path);
 				}
 			}
 		});
-		btnNewButton_2.setBounds(16, 355, 117, 29);
+		btnNewButton_2.setBounds(16, 355, 183, 29);
 		contentPane.add(btnNewButton_2);
 
 		btnNewButton.addActionListener(new ActionListener() {
@@ -249,42 +282,45 @@ public class Principal extends JFrame {
 
 				//JOptionPane.showMessageDialog(null, mensagem);
 				
-				
-				
 				int contador = table_1.getModel().getRowCount();
 				
 				//monta os dados digidados no grid
 				model.addRow(new Object[]{contador, textNome.getText().toUpperCase().charAt(0), textNome.getText().toUpperCase(), textEmail.getText(), comboBoxSexo.getSelectedItem()});
 				
 				//string para gravar no txt em formato para exportacao separador CSV = ;
-				String mensagem2 = textNome.getText() + ";";
+				String mensagem2 = textNome.getText().toUpperCase() + ";";
 				mensagem2 += textEmail.getText() + ";";
 				mensagem2 += comboBoxSexo.getSelectedItem() + ";";
 				
 				//grava em txt os dados informados
 				BufferedWriter escreve;
 				try {
-					escreve = new BufferedWriter(new FileWriter(":c:\\OSI.txt", true));
-					escreve.write(mensagem2);
-			 		escreve.newLine();
-			  		escreve.flush();
-			  		escreve.close();
+					
+					//pego o caminho que quero gravar o arquivo - desktop
+					FileSystemView system = FileSystemView.getFileSystemView();
+					String path = system.getHomeDirectory().getPath() + java.io.File.separator + "OSI.txt";
+					
+					//gravar os arquivos em texto
+					escreve = new BufferedWriter(new FileWriter(path, true));
+					escreve.write(mensagem2);//toda os campos que quero gravar concatenado
+			 		escreve.newLine();//proxima linha
+			  		escreve.flush();//liberar memoria 
+			  		escreve.close();//fecho o arquivo
+			  		
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Atenção: Erro ao gravar no txt OSI.txt");
 				}
-		 		
-			 
-				
-				
+		 	
+				//volta os campos para default
 				textNome.setText("");
 				textEmail.setText("");
 				comboBoxSexo.setSelectedIndex(0);
-				textNome.grabFocus();
+				textNome.grabFocus();//foco no campo que eu quero inicar
 				
 				JScrollBar vertical = scrollBar.getVerticalScrollBar();  
-				vertical.setValue(vertical.getMaximum());  
+				vertical.setValue(vertical.getMaximum());  //pego a ultima linha do jtable
 			}
 		});
 	}
