@@ -5,22 +5,29 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
 
 import br.com.treinar.agenda.modelo.Pessoa;
+import br.com.treinar.agenda.modelo.Sexo;
 
-public class PessaDao {
+public class PessoaDAO {
 
 	public void inserir(Pessoa pessoa) {
+		
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into pessoa (nome, sexo, dataNascimento) values (?, ?, ?)");
 		try {
 			Connection conn = ConnectionFactory.getInstance().getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			PreparedStatement stmt = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, pessoa.getNome());
 			stmt.setInt(2, pessoa.getSexo().ordinal());
 			stmt.setDate(3, new Date(pessoa.getDataNascimento().getTime()));
 			stmt.execute();
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs != null && rs.next()) {
+			   pessoa.setId(rs.getLong(1));
+			}
 			stmt.close();
 		} catch (Exception e) {
 			System.out.println("erro...");
@@ -30,7 +37,7 @@ public class PessaDao {
 	public void excluir(Pessoa pessoa) {
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("delete from contatos where id = ").append("?");
+			sql.append("delete from pessoa where id = ").append("?");
 			Connection conn = ConnectionFactory.getInstance().getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql.toString());
 			stmt.setLong(1, pessoa.getId());
@@ -56,6 +63,8 @@ public class PessaDao {
 				pessoa.setNome(rs.getString("nome"));
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getDate("dataNascimento"));
+				int indexSexo = rs.getInt("sexo");
+				pessoa.setSexo(Sexo.values()[indexSexo]);
 				pessoa.setDataNascimento(data.getTime());
 			}
 			rs.close();
