@@ -90,7 +90,5 @@ public class PessoaDAO implements IBaseDAO<Pessoa> {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
-
 }

@@ -7,6 +7,7 @@ public class Principal {
 	public static void main(String[] args) {
 		TelaPrincipal tp = new TelaPrincipal();
 		tp.iniciarAtividades();
+		System.out.println("Fim do programa...");
 	}
 	
 }
