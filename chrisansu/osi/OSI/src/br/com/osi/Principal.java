@@ -13,6 +13,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -33,8 +36,6 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
-
-import org.omg.CORBA_2_3.portable.InputStream;
 
 
 public class Principal extends JFrame {
@@ -254,6 +255,42 @@ public class Principal extends JFrame {
 		});
 		btnNewButton_2.setBounds(16, 355, 183, 29);
 		contentPane.add(btnNewButton_2);
+		
+		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					Connection conn = ConexaoJDBC.getInstance().getConnection();
+					PreparedStatement stmt = conn.prepareStatement("select * from clientes");
+					
+					ResultSet rs = stmt.executeQuery();
+					int contador = 0;
+					String nome = "";
+					String fantasia = "";
+					String telefone = "";
+					
+					model.getDataVector().removeAllElements();
+					
+					while(rs.next()) {
+						
+						contador = rs.getInt("id");
+						nome = rs.getString("RAZAO_SOCIAL");
+						fantasia = rs.getString("FANTASIA");
+						telefone = rs.getString("TELEFONE");
+					
+						model.addRow(new Object[]{contador, nome, fantasia, telefone});
+					}
+					
+					rs.close();
+					stmt.close();
+				} catch (Exception f) {
+					throw new RuntimeException(f);
+				}				
+			}
+		});
+		btnAtualizar.setBounds(481, 355, 117, 29);
+		contentPane.add(btnAtualizar);
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -285,7 +322,9 @@ public class Principal extends JFrame {
 				int contador = table_1.getModel().getRowCount();
 				
 				//monta os dados digidados no grid
-				model.addRow(new Object[]{contador, textNome.getText().toUpperCase().charAt(0), textNome.getText().toUpperCase(), textEmail.getText(), comboBoxSexo.getSelectedItem()});
+				//model.addRow(new Object[]{contador, textNome.getText().toUpperCase().charAt(0), textNome.getText().toUpperCase(), textEmail.getText(), comboBoxSexo.getSelectedItem()});
+				
+				
 				
 				//string para gravar no txt em formato para exportacao separador CSV = ;
 				String mensagem2 = textNome.getText().toUpperCase() + ";";
