@@ -2,6 +2,7 @@ package br.com.osi;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ConexaoJDBC {
@@ -31,5 +32,10 @@ public class ConexaoJDBC {
 			// se a conexao falhar, mando uma mensagem para o usuário
 			throw new RuntimeException(e);
 		}
+	}
+
+	public PreparedStatement prepareStatement(String string) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
