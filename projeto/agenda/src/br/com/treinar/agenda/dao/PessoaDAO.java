@@ -11,10 +11,10 @@ import java.util.Calendar;
 import br.com.treinar.agenda.modelo.Pessoa;
 import br.com.treinar.agenda.modelo.Sexo;
 
-public class PessoaDAO {
+public class PessoaDAO implements IBaseDAO<Pessoa> {
 
 	public void inserir(Pessoa pessoa) {
-		
+
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into pessoa (nome, sexo, dataNascimento) values (?, ?, ?)");
 		try {
