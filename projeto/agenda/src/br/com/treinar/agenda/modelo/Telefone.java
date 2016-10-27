@@ -6,14 +6,6 @@ public class Telefone {
 	private Integer ddd;
 	private Integer numero;
 	private TipoTelefone tipoTelefone;
-	
-//	create table telefone (
-//	  id BIGINT NOT NULL AUTO_INCREMENT,
-//	  ddd INT,
-//	  numero INT,
-//	  tipoTelefone INT,
-//	  primary key (id)
-//	);
 
 	public Integer getDdd() {
 		return ddd;

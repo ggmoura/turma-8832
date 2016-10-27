@@ -10,6 +10,7 @@ create table pessoa (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	nome VARCHAR(255),
 	sexo INT,
+	dataNascimento DATE,
 	primary key (id)
 );
 
