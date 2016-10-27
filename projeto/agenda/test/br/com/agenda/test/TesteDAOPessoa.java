@@ -17,17 +17,15 @@ public class TesteDAOPessoa {
 		PessoaDAO dao = new PessoaDAO();
 		dao.inserir(p);
 
-		Pessoa p1 = dao.recuperar(1l);
+		Pessoa p1 = dao.recuperar(p.getId());
 		System.out.println(p1.getNome());
-		
-		Pessoa excluido = new Pessoa();
-		excluido.setId(7l);
-		dao.excluir(excluido);
 		
 		p1.setNome("Nathalia Cravo Moura");
 		p1.setSexo(Sexo.F);
 		dao.atualizar(p1);
 		
+		dao.excluir(p1);
+	
 	}
 	
 }
