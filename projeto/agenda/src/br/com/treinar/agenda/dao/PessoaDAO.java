@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import br.com.treinar.agenda.modelo.Pessoa;
 import br.com.treinar.agenda.modelo.Sexo;
@@ -92,5 +94,33 @@ public class PessoaDAO implements IBaseDAO<Pessoa> {
 		}
 
 	}
+	@Override
+	public List<Pessoa> listartodos() {
+		List<Pessoa> pessoas  = new ArrayList<>();
+		Pessoa pessoa = null;
+		try {
+			Connection conn = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement stmt = conn.prepareStatement("select * from pessoa");
+			ResultSet rs = stmt.executeQuery();
 
+			while (rs.next()) {
+				pessoa = new Pessoa();
+				pessoa.setId(rs.getLong("id"));
+				pessoa.setNome(rs.getString("nome"));
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataNascimento"));
+				int indexSexo = rs.getInt("sexo");
+				pessoa.setSexo(Sexo.values()[indexSexo]);
+				pessoa.setDataNascimento(data.getTime());
+
+				pessoas.add(pessoa);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return pessoas;
+	}
+	
 }
