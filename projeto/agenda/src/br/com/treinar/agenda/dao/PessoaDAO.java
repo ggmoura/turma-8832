@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import br.com.treinar.agenda.modelo.Pessoa;
 import br.com.treinar.agenda.modelo.Sexo;
@@ -26,7 +28,7 @@ public class PessoaDAO implements IBaseDAO<Pessoa> {
 			stmt.execute();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs != null && rs.next()) {
-			   pessoa.setId(rs.getLong(1));
+				pessoa.setId(rs.getLong(1));
 			}
 			stmt.close();
 		} catch (Exception e) {
@@ -48,6 +50,57 @@ public class PessoaDAO implements IBaseDAO<Pessoa> {
 		}
 	}
 
+
+	public void atualizar(Pessoa pessoa) {
+
+		String sql = "update pessoa set nome = ?, sexo = ?, dataNascimento = ? where id = ?";
+		try {
+			Connection conn = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, pessoa.getNome());
+			stmt.setInt(2, pessoa.getSexo().ordinal());
+			stmt.setDate(3, new Date(pessoa.getDataNascimento().getTime()));
+			stmt.setLong(4, pessoa.getId());
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	@Override // Override ==> indica que esse metodo foi criado no metodo pai e
+				// esta sendo usado no metodo filho.
+	public List<Pessoa> listarTodos() {
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		Pessoa pessoa = null;
+		try {
+			Connection conn = ConnectionFactory.getInstance().getConnection();
+			PreparedStatement stmt = conn.prepareStatement("select * from pessoa");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				pessoa = new Pessoa();
+				pessoa.setId(rs.getLong("id"));
+				pessoa.setNome(rs.getString("nome"));
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataNascimento"));
+				int indexSexo = rs.getInt("sexo");
+				pessoa.setSexo(Sexo.values()[indexSexo]);
+				pessoa.setDataNascimento(data.getTime());
+				pessoas.add(pessoa);
+			}
+			rs.close();
+			stmt.close();
+			return pessoas;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
+
+	}
+
+	@Override
 	public Pessoa recuperar(Long id) {
 		Pessoa pessoa = null;
 		try {
@@ -73,24 +126,6 @@ public class PessoaDAO implements IBaseDAO<Pessoa> {
 			throw new RuntimeException(e);
 		}
 		return pessoa;
-	}
-
-	public void atualizar(Pessoa pessoa) {
-
-		String sql = "update pessoa set nome = ?, sexo = ?, dataNascimento = ? where id = ?";
-		try {
-			Connection conn = ConnectionFactory.getInstance().getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, pessoa.getNome());
-			stmt.setInt(2, pessoa.getSexo().ordinal());
-			stmt.setDate(3, new Date(pessoa.getDataNascimento().getTime()));
-			stmt.setLong(4, pessoa.getId());
-			stmt.execute();
-			stmt.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-
 	}
 
 }
