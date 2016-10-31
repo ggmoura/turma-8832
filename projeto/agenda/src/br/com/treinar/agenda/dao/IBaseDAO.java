@@ -14,5 +14,8 @@ public interface IBaseDAO<T> {
 	
 	List<T> listarTodos();
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> branch 'master' of https://github.com/ggmoura/turma-8832.git
 }

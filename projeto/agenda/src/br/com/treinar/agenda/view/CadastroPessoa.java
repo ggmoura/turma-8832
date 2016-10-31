@@ -1,5 +1,6 @@
 package br.com.treinar.agenda.view;
 
+<<<<<<< HEAD
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -111,5 +112,8 @@ public class CadastroPessoa {
 		dao.inserir(pessoa);
 
 	}
+=======
+public class CadastroPessoa {
+>>>>>>> branch 'master' of https://github.com/ggmoura/turma-8832.git
 
 }
