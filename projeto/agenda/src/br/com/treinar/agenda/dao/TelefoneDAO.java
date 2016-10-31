@@ -1,5 +1,7 @@
 package br.com.treinar.agenda.dao;
 
+import java.util.List;
+
 import br.com.treinar.agenda.modelo.Telefone;
 
 
@@ -22,4 +24,8 @@ public class TelefoneDAO implements IBaseDAO<Telefone> {
 
 	}
 
+	@Override
+	public List<Telefone> listarTodos() {
+		return null;
+	}
 }
