@@ -15,6 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet({ "/PrimeiroServlet", "/abacaxi" })
 public class PrimeiroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+	}
+	
 
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
