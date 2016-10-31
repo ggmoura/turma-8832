@@ -2,6 +2,7 @@ package br.com.osi;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,9 +17,13 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,6 +41,9 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+
+import javafx.scene.control.ButtonBar;
 
 
 public class Principal extends JFrame {
@@ -45,7 +53,8 @@ public class Principal extends JFrame {
 	private JTextField textEmail;
 	private JTable table_1;
 	private JScrollPane scrollPane;
-
+	private List<String[]>itens;
+	private final DefaultTableModel model;
 	
 
 	/**
@@ -139,7 +148,7 @@ public class Principal extends JFrame {
 		comboBoxSexo.setBounds(491, 70, 153, 27);
 		contentPane.add(comboBoxSexo);
 
-		Object[] colunas = new Object[] { "#", "Nome", "Email", "Telefone", "Sexo", "Turno" };
+		Object[] colunas = new Object[] { "#", "Nome", "Email", "Button" };
 
 		// Cria os dados, array com 3 linha e 3 colunas
 
@@ -157,24 +166,24 @@ public class Principal extends JFrame {
 
 		// Cria o JTable
 		//table_1 = new JTable(valores, colunas);
-		final DefaultTableModel model = new DefaultTableModel();
+		model = new DefaultTableModel();
 		final JTable table_1 = new JTable(model);
 		model.addColumn("#");		
-		model.addColumn("L"); 
 		model.addColumn("Nome"); 
 		model.addColumn("Email"); 
-		model.addColumn("Sexo"); 
-		
+		model.addColumn("Button"); 
+
 
 		table_1.setBackground(UIManager.getColor("CheckBox.background"));
 		table_1.setBounds(6, 18, 719, 352);
 		contentPane.add(table_1);
 		
-		table_1.getColumnModel().getColumn(0).setPreferredWidth(5);
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(5);
-		table_1.getColumnModel().getColumn(2).setPreferredWidth(100);
-		table_1.getColumnModel().getColumn(3).setPreferredWidth(200);
-		table_1.getColumnModel().getColumn(4).setPreferredWidth(60);
+		//table_1.getColumnModel().getColumn(0).setPreferredWidth(45);
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(45);
+		
+		//table_1.getColumn("Button").setCellRenderer(new ButtonRenderer());
+		table_1.getColumn("Button").setCellEditor(new ButtonEditor(new JCheckBox()));
+	
 		
 		//cria o scroll da tabela
 		final JScrollPane scrollBar = new JScrollPane(table_1);
@@ -260,33 +269,14 @@ public class Principal extends JFrame {
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				try {
-					Connection conn = ConexaoJDBC.getInstance().getConnection();
-					PreparedStatement stmt = conn.prepareStatement("select * from clientes");
-					
-					ResultSet rs = stmt.executeQuery();
-					int contador = 0;
-					String nome = "";
-					String fantasia = "";
-					String telefone = "";
-					
-					model.getDataVector().removeAllElements();
-					
-					while(rs.next()) {
-						
-						contador = rs.getInt("id");
-						nome = rs.getString("RAZAO_SOCIAL");
-						fantasia = rs.getString("FANTASIA");
-						telefone = rs.getString("TELEFONE");
-					
-						model.addRow(new Object[]{contador, nome, fantasia, telefone});
-					}
-					
-					rs.close();
-					stmt.close();
-				} catch (Exception f) {
-					throw new RuntimeException(f);
-				}				
+				//retorno				
+				model.getDataVector().removeAllElements();
+				itens = new GridConsulta().recuperaraTodos();
+				
+				for (String[] item : itens) {
+					model.addRow(new Object[]{item[0],item[1], item[2]});
+				}
+
 			}
 		});
 		btnAtualizar.setBounds(481, 355, 117, 29);
@@ -351,7 +341,45 @@ public class Principal extends JFrame {
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Atenção: Erro ao gravar no txt OSI.txt");
 				}
-		 	
+				
+			
+				StringBuilder sql = new StringBuilder();
+				sql.append("insert into clientes(RAZAO_SOCIAL, EMAIL)value(?,?)");
+				Connection conn = ConexaoJDBC.getInstance().getConnection();
+				
+				try {
+					PreparedStatement stmt = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+					stmt.setString(1, textNome.getText());
+					stmt.setString(2, textEmail.getText());
+					
+					stmt.execute();
+
+					ResultSet rs = stmt.getGeneratedKeys();
+					if (rs != null && rs.next()) {
+						long id = rs.getLong(1);//PEGO O ID DO REGISTRO INSERIDO
+					}
+					
+					textNome.setText("");
+					
+					stmt.close();//FECHOU A CONEXAO
+					conn.close();
+					//MENSAGEM PARA O USUARIO
+					JOptionPane.showMessageDialog(null, "Registro gravado com sucesso!");
+					
+					
+				} catch (Exception e2) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Erro ao gravar registro");
+				}
+				
+				
+				model.getDataVector().removeAllElements();
+				itens = new GridConsulta().recuperaraTodos();
+				
+				for (String[] item : itens) {
+					model.addRow(new Object[]{item[0], item[1], item[2], "Excluir"});
+				}
+				
 				//volta os campos para default
 				textNome.setText("");
 				textEmail.setText("");
@@ -362,5 +390,94 @@ public class Principal extends JFrame {
 				vertical.setValue(vertical.getMaximum());  //pego a ultima linha do jtable
 			}
 		});
+	}
+	
+	class ButtonEditor extends DefaultCellEditor {
+		protected JButton button;
+
+		private String label;
+
+		private boolean isPushed;
+
+		public ButtonEditor(JCheckBox checkBox) {
+			super(checkBox);
+			button = new JButton();
+			button.setOpaque(true);
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					fireEditingStopped();
+				}
+			});
+		}
+
+		public Component getTableCellEditorComponent(JTable table_1, Object value, boolean isSelected, int row, int column) {
+			
+			if (isSelected) {
+				button.setForeground(table_1.getSelectionForeground());
+				button.setBackground(table_1.getSelectionBackground());
+			} else {
+				button.setForeground(table_1.getForeground());
+				button.setBackground(table_1.getBackground());
+			}
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("delete from clientes where id = ?");
+			Connection conn = ConexaoJDBC.getInstance().getConnection();
+			
+			try {
+				
+				int confirma = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro", "Atenção", JOptionPane.YES_NO_OPTION);
+				
+				if(confirma == JOptionPane.YES_OPTION){
+					
+					PreparedStatement stmt = conn.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+					stmt.setString(1, itens.get(row)[0]);
+					stmt.execute();
+
+					ResultSet rs = stmt.getGeneratedKeys();
+					if (rs != null && rs.next()) {
+						long id = rs.getLong(1);//PEGO O ID DO REGISTRO INSERIDO
+					}
+										
+					stmt.close();//FECHOU A CONEXAO
+					conn.close();
+					//MENSAGEM PARA O USUARIO
+					JOptionPane.showMessageDialog(null, "Registro excluido com sucesso!");
+					
+					model.removeRow(row);//remove a linha excluida					
+				}
+				
+			} catch (Exception e2) {
+					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Erro ao excluir registro");
+			}
+				
+			JOptionPane.showMessageDialog(null, itens.get(row)[0]);
+			label = (value == null) ? "" : value.toString();
+			button.setText(label);
+			isPushed = true;
+			return button;
+		}
+		
+		
+		public Object getCellEditorValue() {
+			if (isPushed) {
+				//
+				//
+				//JOptionPane.showMessageDialog(button, label + ": Ouch!");
+				// System.out.println(label + ": Ouch!");
+			}
+			isPushed = false;
+			return new String(label);
+		}
+
+		public boolean stopCellEditing() {
+			isPushed = false;
+			return super.stopCellEditing();
+		}
+
+		protected void fireEditingStopped() {
+			super.fireEditingStopped();
+		}
 	}
 }
