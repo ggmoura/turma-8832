@@ -2,6 +2,8 @@ package br.com.treinar.controle;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -21,6 +23,7 @@ public class PrimeiroServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// Set response content type
@@ -29,7 +32,9 @@ public class PrimeiroServlet extends HttpServlet {
 		// Actual logic goes here.
 		PrintWriter out = response.getWriter();
 		out.println("<h1>");
-		out.println(new Date());
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		out.println("Olá, hoje é ");
+		out.print(format.format(new Date()));
 		out.println("</h1>");
 	}
 
