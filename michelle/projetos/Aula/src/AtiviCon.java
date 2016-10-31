@@ -16,7 +16,7 @@ public class AtiviCon {
 			}
 
 }
-
+/*
 int cont = 0;
 String mensagem "";
 
@@ -40,3 +40,4 @@ cont++;
 	}
 
 }
+*/
