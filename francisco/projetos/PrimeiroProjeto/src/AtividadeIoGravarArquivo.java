@@ -64,7 +64,7 @@ public class AtividadeIoGravarArquivo {
 		BufferedWriter bw = new BufferedWriter(osw);
 
 		bw.newLine();
-		bw.write(nomes);
+		//bw.write(nomes);
 
 		bw.close();
 		
