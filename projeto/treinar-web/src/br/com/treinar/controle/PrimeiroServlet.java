@@ -48,6 +48,11 @@ public class PrimeiroServlet extends HttpServlet {
 				+ "  <li><b>Last Name</b>: "
 				+ request.getParameter("senha") + "\n" + "</ul>\n"
 				+ "</body></html>");
+		
+		String[] opcoes = request.getParameterValues("opcao");
+		for (String opcao : opcoes) {
+			System.out.println(opcao);
+		}
 	}
 
 	@Override
