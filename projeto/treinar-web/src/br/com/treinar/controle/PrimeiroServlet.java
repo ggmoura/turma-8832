@@ -2,9 +2,7 @@ package br.com.treinar.controle;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,52 +13,46 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class PrimeiroServlet
  */
-@WebServlet({ "/PrimeiroServlet", "/abacaxi" })
+@WebServlet(urlPatterns = { "/PrimeiroServlet", "/abacaxi" }, loadOnStartup = 1)
 public class PrimeiroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		
-		PrintWriter out = resp.getWriter();
-		out.println("<h1>");
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		out.println("Olá, estou no método doGet, hoje é ");
-		out.print(format.format(new Date()));
-		out.println("</h1>");
+	public void init() throws ServletException {
+		super.init();
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		PrintWriter out = resp.getWriter();
-		out.println("<h1>");
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		out.println("Olá, estou no método doPost, hoje é ");
-		out.print(format.format(new Date()));
-		out.println("</h1>");
-	}
-	
-	
-	
+
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// Set response content type
 		response.setContentType("text/html");
 
-		// Actual logic goes here.
+		Enumeration<String> parameterNames = request.getParameterNames();
+		while (parameterNames.hasMoreElements()) {
+			System.out.println(parameterNames.nextElement());
+		}
+		
 		PrintWriter out = response.getWriter();
-		out.println("<h1>");
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		out.println("Olá, hoje é ");
-		out.print(format.format(new Date()));
-		out.println("</h1>");
+		String title = "Using GET Method to Read Form Data";
+		String docType = "<!doctype html>\n";
+		out.println(docType + "<html>\n" + "<head><title>" + title
+				+ "</title></head>\n" + "<body bgcolor=\"#f0f0f0\">\n"
+				+ "<h1 align=\"center\">" + title + "</h1>\n" + "<ul>\n"
+				+ "  <li><b>First Name</b>: "
+				+ request.getParameter("email") + "\n"
+				+ "  <li><b>Last Name</b>: "
+				+ request.getParameter("senha") + "\n" + "</ul>\n"
+				+ "</body></html>");
+	}
+
+	@Override
+	public void destroy() {
+		super.destroy();
 	}
 
 }

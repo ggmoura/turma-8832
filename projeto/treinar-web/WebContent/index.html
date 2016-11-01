@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script
+	src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <meta charset="ISO-8859-1">
 <title>Treinar Web</title>
 </head>
 <body>
 
 	<h1>Olá Java EE</h1>
-	<form action="abacaxi" method="post">
+	<form action="abacaxi" method="get">
+		<div class="ui-grid-solo">
+			<div class="ui-block-a">
+				<div class="ui-field-contain">
+					<label for="email">Email:</label> 
+					<input name="email" id="email" data-clear-btn="true" value="" type="text" />
+				</div>
+			</div>
+			<div class="ui-block-a">
+				<div class="ui-field-contain">
+					<label for="email">Senha:</label>
+					<input name="senha" id="senha" data-clear-btn="true" value="" type="text" />
+				</div>
+			</div>
+		</div>
+
 		<input type="submit" value="Enviar">
 	</form>
 </body>
