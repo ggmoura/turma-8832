@@ -25,6 +25,8 @@
 <input type="text" value="${xpto}">
 <input type="text" value="<%= request.getServletContext().getAttribute("xpto")%>">
 
+${10 + 10 * 20}
+
 <script type="text/javascript">
 	//alert('Olá Mundo');
 </script>
