@@ -22,7 +22,7 @@ public class AtividadeRepeticao {
 		} while (comp < quantidade);
 	
 //		For
-		for (int comp = 0; comp < quantidade; comp++) {
+		for (int comp2 = 0; comp2 < quantidade; comp2++) {
 //			(declaração de variaveis; condição de parada ; atualização de valor)
 			System.out.println(comp +" - Michelle");
 		} 

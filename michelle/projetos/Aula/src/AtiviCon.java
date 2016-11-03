@@ -13,10 +13,8 @@ public class AtiviCon {
 		cont++;
 			
 		}
-			}
-
 }
-
+/*
 int cont = 0;
 String mensagem "";
 
@@ -25,9 +23,9 @@ while (cont <= 50) {
 	System.out.println(mensagem + cont);
 	
 cont++;
-	
+*/	
 }
-
+/*
 int cont = 0;
 
 while (cont <= 50) {
@@ -38,5 +36,4 @@ cont++;
 	
 }
 	}
-
-}
+*/
