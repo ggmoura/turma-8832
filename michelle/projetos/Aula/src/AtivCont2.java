@@ -1,7 +1,7 @@
 
-public class AtivCont {
+public class AtivCont2 {
 	public static void main(String[] args) {
-		
+		int cont = 0;
 		int a = 50;
 		
 		while (a < 50) {
@@ -13,4 +13,3 @@ public class AtivCont {
 
 	}
 
-}
