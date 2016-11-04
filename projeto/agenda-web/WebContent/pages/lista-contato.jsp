@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="trn" uri="../WEB-INF/agenda.tld"%>
 
 <!DOCTYPE html>
 <html>
@@ -23,6 +24,7 @@
 					<th data-priority="4">Tipo</th>
 				</tr>
 			</thead>
+			
 			<tbody>
 				<c:forEach items="${contatos}" var="c">
 					<tr>
@@ -31,7 +33,7 @@
 						<td>${c.pessoa.sexo}</td>
 						<td><fmt:formatDate pattern="dd-MM-yyyy" value="${c.pessoa.dataNascimento}" /></td>
 						<td>${c.telefone.ddd}-${c.telefone.numero}</td>
-						<td>${c.telefone.tipoTelefone}</td>
+						<td><trn:tipo selecionado="${c.telefone.tipoTelefone}"></trn:tipo></td>
 						
 					</tr>
 				</c:forEach>

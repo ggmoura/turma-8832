@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="trn" uri="../WEB-INF/agenda.tld"%>
 <!DOCTYPE html">
 <html>
 <head>
@@ -39,12 +39,13 @@
 						<input type="text" name="numero">
 					</div>
 					<div class="ui-block-c">
-						<select name="tipoTelefone" id="select-1">
+						<!-- <select name="tipoTelefone" id="tipoTelefone">
 							<option value="SELECIONE">Selecione</option>
 							<option value="CELULAR">Celular</option>
 							<option value="RESIDENCIAL">Residencial</option>
 							<option value="COMERCIAL">Comercial</option>
-						</select>
+						</select> -->
+						<trn:tipo name="tipoTelefone" id="selectTipoTelefone"></trn:tipo>
 					</div>
 				</div>
 			</div>
