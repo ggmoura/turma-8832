@@ -20,12 +20,11 @@ public class ServletController extends HttpServlet {
 			throws ServletException, IOException {
 		String comandoStr = req.getParameter("comando");
 		try {
-			comandoStr = null;
 			Comando comando = (Comando) Class.forName(comandoStr).newInstance();
 			comando.executar(req, resp);
 			System.out.println(comando);
 		} catch (Exception e) {
-			comandoStr.toString();
+			//comandoStr.toString();
 		}
 		
 	}
