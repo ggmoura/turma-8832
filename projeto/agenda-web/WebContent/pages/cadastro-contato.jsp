@@ -80,6 +80,6 @@
 		<input type="submit" value="Cadastrar Contato">
 
 	</form>
-
+	<jsp:include page="/rodape.jsp"></jsp:include>
 </body>
 </html>
