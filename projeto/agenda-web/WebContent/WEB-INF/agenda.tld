@@ -20,6 +20,16 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	
+	<tag>
+		<name>mensagem</name>
+		<tag-class>br.com.treinar.agenda.util.MensagemTLD</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>texto</name>
+			<required>true</required>
+		</attribute>
+	</tag>
 
 
 </taglib>
