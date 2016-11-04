@@ -11,7 +11,7 @@
 <form action=".menu.trn">
 		<div class="ui-grid-solo">
 		<div class="ui-block-a">
-			<a href="http://localhost:8080/agenda-web/listar.trn">Listar Contatos</a>
+			<a href="${pageContext.request.contextPath}/agenda-web/listar.trn?comando=br.com.treinar.agenda.service.ListaContatosComando">Listar Contatos</a>
 		</div>
 		<div class="ui-block-a">
 		
