@@ -38,7 +38,7 @@
 				</h:inputText>
 				<h:selectOneMenu value="#{primeiroMB.contato.telefone.tipoTelefone}">
 					<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
-					<f:selectItems value="#{primeiroMB.tipos}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
+					<f:selectItems value="#{util.tipos}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
 				</h:selectOneMenu>
 			</h:panelGroup>
 

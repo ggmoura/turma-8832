@@ -13,11 +13,13 @@ public class TelefoneConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent component,
 			String value) {
-		String dddStr = value.substring(0, 2);
-		String numStr = value.substring(2, 11);
 		Telefone t = new Telefone();
-		t.setDdd(Integer.parseInt(dddStr));
-		t.setNumero(Integer.parseInt(numStr));
+		if (value != null && !value.isEmpty()) {
+			String dddStr = value.substring(0, 2);
+			String numStr = value.substring(2, 11);
+			t.setDdd(Integer.parseInt(dddStr));
+			t.setNumero(Integer.parseInt(numStr));
+		}
 		return t;
 	}
 
@@ -25,6 +27,10 @@ public class TelefoneConverter implements Converter {
 	public String getAsString(FacesContext facesContext, UIComponent component,
 			Object value) {
 		Telefone t = (Telefone) value;
-		return new StringBuilder().append(t.getDdd()).append(t.getNumero()).toString();
+		String telefoneStr = "";
+		if (t.getNumero() != null && t.getDdd() != null) {
+			telefoneStr = new StringBuilder().append(t.getDdd()).append(t.getNumero()).toString();
+		}
+		return telefoneStr;
 	}
 }

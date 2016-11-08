@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/pages/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:messages />
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="Nome" />
+				<h:panelGroup>
+					<h:inputText id="nome" value="#{contatoMB.contato.pessoa.nome}"
+						required="true" requiredMessage="Nome é obrigatório" label="Nome" />
+					<h:message for="nome" />
+				</h:panelGroup>
+				<h:outputText value="E-Mail" />
+				<h:inputText value="#{contatoMB.contato.email}" label="E-Mail"
+					required="true">
+					<f:validateLength minimum="3" maximum="5" />
+				</h:inputText>
+				<h:outputText value="Data Nascimento" />
+				<h:inputText value="#{contatoMB.contato.pessoa.dataNascimento}"
+					label="Data Nascimento" required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+				</h:inputText>
+				<h:outputText value="Telefone" />
+				<h:panelGroup>
+					<h:inputText value="#{contatoMB.contato.telefone}"
+						placeholder="(xx)x xxxx-xxxx">
+						<f:validator
+							validatorId="br.com.treinar.agenda.validator.TelefoneValidator" />
+						<f:converter
+							converterId="br.com.treinar.agenda.converter.TelefoneConverter" />
+					</h:inputText>
+					<h:selectOneMenu value="#{contatoMB.contato.telefone.tipoTelefone}">
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<f:selectItems value="#{util.tipos}" var="tipo"
+							itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+
+			</h:panelGrid>
+			<h:commandButton action="#{contatoMB.fazerEdicao()}" value="Editar" />
+			<h:commandLink action="lista" value="Voltar" immediate="true" />
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -3,28 +3,33 @@ package br.com.treinar.agenda.controle;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import br.com.treinar.agenda.modelo.Contato;
 import br.com.treinar.agenda.modelo.Pessoa;
 import br.com.treinar.agenda.modelo.Telefone;
-import br.com.treinar.agenda.modelo.TipoTelefone;
 
 @ManagedBean
+@SessionScoped
 public class PrimeiroMB {
 
 	private Contato contato;
-	private TipoTelefone[] tipos;
 
 	public PrimeiroMB() {
-		tipos = TipoTelefone.values();
-		contato = new Contato();
+		contato = criarContato();
+	}
+
+	private Contato criarContato() {
+		Contato contato = new Contato();
+		contato.setId(10L);
 		contato.setPessoa(new Pessoa());
 		contato.getPessoa().setDataNascimento(new Date());
 		contato.setTelefone(new Telefone());
 		contato.getTelefone().setDdd(31);
 		contato.getTelefone().setNumero(987749131);
+		return contato;
 	}
-
+	
 	public void gravarPessoa() {
 		System.out.println(contato.getPessoa().getNome());
 	}
@@ -35,14 +40,6 @@ public class PrimeiroMB {
 
 	public void setContato(Contato contato) {
 		this.contato = contato;
-	}
-
-	public TipoTelefone[] getTipos() {
-		return tipos;
-	}
-
-	public void setTipos(TipoTelefone[] tipos) {
-		this.tipos = tipos;
 	}
 
 }
