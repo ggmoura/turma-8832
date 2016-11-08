@@ -4,13 +4,45 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-
 <h:head>
 	<title>JSF Tutorial!</title>
+	<script type="text/javascript">
+		console.log('javascript');
+	</script>
 </h:head>
 <h:body>
+	<h:messages />
 	<h:form>
-		<h:inputText value="#{primeiroMB.contato.pessoa.nome}" />
+		<h:panelGrid columns="2">
+			<h:outputText value="Nome" />
+			<h:panelGroup>
+				<h:inputText id="nome" value="#{primeiroMB.contato.pessoa.nome}"
+					required="true" requiredMessage="Nome é obrigatório" label="Nome" />
+				<h:message for="nome" />
+			</h:panelGroup>
+			<h:outputText value="E-Mail" />
+			<h:inputText value="#{primeiroMB.contato.email}" label="E-Mail"
+				required="true">
+				<f:validateLength minimum="3" maximum="5" />
+			</h:inputText>
+			<h:outputText value="Data Nascimento" />
+			<h:inputText value="#{primeiroMB.contato.pessoa.dataNascimento}"
+				label="Data Nascimento" required="true">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+			</h:inputText>
+			<h:outputText value="Telefone" />
+			<h:panelGroup>
+				<h:inputText value="#{primeiroMB.contato.telefone}" placeholder="(xx)x xxxx-xxxx">
+					<f:validator validatorId="br.com.treinar.agenda.validator.TelefoneValidator"/>
+					<f:converter converterId="br.com.treinar.agenda.converter.TelefoneConverter"/>
+				</h:inputText>
+				<h:selectOneMenu value="#{primeiroMB.contato.telefone.tipoTelefone}">
+					<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+					<f:selectItems value="#{primeiroMB.tipos}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}" />
+				</h:selectOneMenu>
+			</h:panelGroup>
+
+		</h:panelGrid>
 		<h:commandButton action="#{primeiroMB.gravarPessoa()}" value="Gravar" />
 	</h:form>
 </h:body>
