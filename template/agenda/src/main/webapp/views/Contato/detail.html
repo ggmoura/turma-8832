@@ -1,0 +1,40 @@
+<header ng-switch on="$location.path().indexOf('/Contatos/new') > -1">
+    <h3 ng-switch-when="true">Create a new Contato</h3>
+    <h3 ng-switch-when="false">View or edit Contato</h3>
+</header>
+<form id="ContatoForm" name="ContatoForm" class="form-horizontal" role="form">
+        <div class="form-group" ng-class="{'has-error': ContatoForm.pessoa.$invalid}">
+        <label for="pessoa" class="col-sm-2 control-label">Pessoa</label>
+        <div id="pessoaControls" class="col-sm-10">
+        <select id="pessoa" name="pessoa" class="form-control" ng-model="pessoaSelection" ng-options="p.text for p in pessoaSelectionList"  >
+            <option value="">Choose a Pessoa</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ContatoForm.telefones.$invalid}">
+        <label for="telefones" class="col-sm-2 control-label">Telefones</label>
+        <div id="telefonesControls" class="col-sm-10">
+            <select id="telefones" name="telefones" multiple class="form-control" ng-model="telefonesSelection" ng-options="t.text for t in telefonesSelectionList">
+                <option value="">Choose a Telefones</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ContatoForm.email.$invalid}">
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div id="emailControls" class="col-sm-10">
+            <input id="email" name="email" type="text" class="form-control" ng-model="contato.email" placeholder="Enter the Contato Email"></input>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveContato" name="saveContato" class="btn btn-primary" ng-disabled="isClean() || ContatoForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteContato" name="deleteContato" class="btn btn-danger" ng-show="contato.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>

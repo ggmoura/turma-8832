@@ -1,0 +1,40 @@
+<header ng-switch on="$location.path().indexOf('/Telefones/new') > -1">
+    <h3 ng-switch-when="true">Create a new Telefone</h3>
+    <h3 ng-switch-when="false">View or edit Telefone</h3>
+</header>
+<form id="TelefoneForm" name="TelefoneForm" class="form-horizontal" role="form">
+        <div class="form-group" ng-class="{'has-error': TelefoneForm.numero.$invalid}">
+        <label for="numero" class="col-sm-2 control-label">Numero</label>
+        <div id="numeroControls" class="col-sm-10">
+            <input id="numero" name="numero" type="number" class="form-control" ng-model="telefone.numero" placeholder="Enter the Telefone Numero"></input>
+            <span class="help-block error" ng-show="TelefoneForm.numero.$error.number">not a number</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': TelefoneForm.ddd.$invalid}">
+        <label for="ddd" class="col-sm-2 control-label">Ddd</label>
+        <div id="dddControls" class="col-sm-10">
+            <input id="ddd" name="ddd" type="number" class="form-control" ng-model="telefone.ddd" placeholder="Enter the Telefone Ddd"></input>
+            <span class="help-block error" ng-show="TelefoneForm.ddd.$error.number">not a number</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': TelefoneForm.tipo.$invalid}">
+        <label for="tipo" class="col-sm-2 control-label">Tipo</label>
+        <div id="tipoControls" class="col-sm-10">
+        <select id="tipo" name="tipo" class="form-control" ng-model="telefone.tipo" ng-options="t for t in tipoList"  >
+            <option value="">Choose a Tipo</option>
+        </select>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveTelefone" name="saveTelefone" class="btn btn-primary" ng-disabled="isClean() || TelefoneForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteTelefone" name="deleteTelefone" class="btn btn-danger" ng-show="telefone.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>
